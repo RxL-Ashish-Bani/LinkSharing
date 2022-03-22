@@ -6,6 +6,7 @@ class Topic {
     String topicName
     Date dateCreated
     Date lastUpdated
+    Dummy createdBy
     Visibility topicVisible
 
     static constraints = {
@@ -18,6 +19,6 @@ class Topic {
         Private,
         Public
     }
-//    static hasMany = [subscription: Subscription, resource: Resources]
+    static hasMany = [subscription: Subscription, resource: Resources, linkResource: LinkResource, docResource: DocumentResource]
     static belongsTo = [Dummy]
 }

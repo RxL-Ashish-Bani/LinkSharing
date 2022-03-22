@@ -28,3 +28,7 @@ class Dummy {
 
     static hasMany = [topic: Topic]
 }
+
+
+
+//session['user'] = company.Dummy

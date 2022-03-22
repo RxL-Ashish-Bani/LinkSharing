@@ -35,7 +35,7 @@
 </head>
 <body id="b" style="background-color: #1f273c">
 <g:if test="${flash.message}">
-    <div class="alert alert-warning alert-dismissible fade show" id="flash" role="alert">
+    <div class="alert alert-dismissible alert-success fade show" role="alert">
     <strong>${flash.message}!</strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
@@ -45,7 +45,7 @@
 %{--</div>--}%
 </g:if>
 <div class="container-fluid">
-    <nav class="navbar navbar-expand-md py-3 navbar-light" id="nav"">
+    <nav class="navbar navbar-expand-md py-3 navbar-light" id="nav">
         <div class="container-fluid">
             <a class="navbar-brand" href="#" id="modalbegin">
                 <b>Link Sharing</b>
@@ -143,7 +143,7 @@
                                 </div>
                                 <div class="col-4">
                                     <fieldset class="buttons">
-                                        <input type="submit" name="login" class="login btn btn-secondary" id="button">
+                                        <input type="submit" name="login" class="login btn btn-secondary" id="button" value="Login">
                                     </fieldset>
                                     %{--<button type="submit" name="login" class="login btn btn-dark float-end">Login</button>--}%
                                 </div>

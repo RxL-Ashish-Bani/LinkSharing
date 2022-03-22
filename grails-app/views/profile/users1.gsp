@@ -2,10 +2,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Dashboard</title>
-    %{--<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">--}%
-    %{--<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>--}%
-    %{--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>--}%
+    <title>Users</title>
     <asset:stylesheet href="Style.css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -255,20 +252,20 @@
                     <li>
                         <div class="dropdown show">
                             <a class="btn btn-primary dropdown-toggle icon" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                User
+                                ${usrId.userName}
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <g:link controller="profile" action="user" params="[id: object1.id]" name="User" class="dropdown-item ">Pofile</g:link>
+                                <g:link controller="profile" action="editProfile" params="[id: usrId]" name="User" class="dropdown-item ">Profile</g:link>
                                 %{--<a class="dropdown-item" href="#" >Profile</a>--}%
-                                <g:link controller="profile" action="users" params="[id: object1.id]" name="Topics" class="dropdown-item ">Topics</g:link>
+                                %{--<g:link controller="profile" action="users1" params="[id: usr]" name="Users" class="dropdown-item ">Users</g:link>--}%
                                 %{--<a class="dropdown-item" href="#" >Users</a>--}%
-                                <g:link controller="topic" action="topics" params="[id: object1.id]" name="Topics" class="dropdown-item ">Topics</g:link>
+                                %{--<g:link controller="topic" action="topics" params="[id: usr]" name="Topics" class="dropdown-item ">Topics</g:link>--}%
                                 %{--<a class="dropdown-item" href="#">Topics</a>--}%
-                                <g:link controller="topic" action="posts" params="[id: object1.id]" name="Posts" class="dropdown-item ">Posts</g:link>
+                                %{--<g:link controller="topic" action="posts" params="[id: usr]" name="Posts" class="dropdown-item ">Posts</g:link>--}%
                                 %{--<a class="dropdown-item" href="#">Posts</a>--}%
                                 %{--<a class="dropdown-item" href="#">Logout</a>--}%
-                                <g:link controller="dummy" action="register" params="[id: object1.id]" name="Topic" class="dropdown-item ">Logout</g:link>
+                                <g:link controller="dummy" action="logout" params="[id: usrId]" name="Logout" class="dropdown-item ">Logout</g:link>
                             </div>
                         </div>
                     </li>

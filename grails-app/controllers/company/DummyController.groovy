@@ -56,7 +56,9 @@ class DummyController {
             else{
                 flash.message ="Welcome..!"
 //                redirect controller:"Dashboard", action: "dashboard"
-                redirect controller:"dashboard",action: "dashboard", params:[uid: user.id]
+//                session["users"]=user
+                session.setAttribute("users",user)
+                redirect controller:"dashboard",action: "dashboard" //, params:[uid: user.id]
             }
         }
 
@@ -78,6 +80,10 @@ class DummyController {
             flash.message="User Created"
             render view: "register"
         }
+    }
+    def logout(){
+        session.invalidate()
+        render view: "register"
     }
 
 }

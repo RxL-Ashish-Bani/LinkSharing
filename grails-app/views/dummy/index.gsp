@@ -33,7 +33,7 @@
 <div class="container-fluid">
     <nav class="navbar navbar-expand-md py-3 navbar-light" style="background-color: #bdfeff;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" id="modalbegin"><b>Link Sharing</b></a>
+            <a class="navbar-brand" href="/dashboard/dashboard" id="modalbegin"><b>Link Sharing</b></a>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>

@@ -45,7 +45,7 @@
     <nav class="navbar navbar-expand-md py-3 navbar-light" id="nav" style="background-color: #bdfeff;">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#" id="modalbegin"><b>Link Sharing</b></a>
+                <a class="navbar-brand" href="/dashboard/dashboard" id="modalbegin"><b>Link Sharing</b></a>
             </div>
             <form class="navbar-form navbar-right d-flex" action="/action_page.php">
                 <div class="form-group">
@@ -71,7 +71,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <g:form controller="dashboard" action="topic" name="create-topic" params="[id: object.id]">
+                                <g:form controller="dashboard" action="topic" name="create-topic" params="[id: usr.id]">
                                     <div class="container" style="padding:10px">
                                         <div class="form-group">
                                             <label for="topicName">Name:</label>

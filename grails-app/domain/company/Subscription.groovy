@@ -5,12 +5,12 @@ class Subscription {
     Seriousness seriousness
     static constraints = {
         dateCreated nullable: true, date: true
-        seriousness nullable: false
+        seriousness nullable: true
     }
     enum Seriousness{
         VerySerious,
         Serious,
         Casual
     }
-    static belongsTo = [Topic, Dummy]
+    static belongsTo = [topic: Topic,user: Dummy]
 }

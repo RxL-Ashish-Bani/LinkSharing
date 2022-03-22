@@ -1,11 +1,8 @@
-<%@ page import="company.Topic" %>
+<%@ page import="company.Resources; company.Topic" %>
 <!doctype html>
 <html>
 <head>
     <title>Dashboard</title>
-    %{--<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">--}%
-    %{--<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>--}%
-    %{--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>--}%
     <asset:stylesheet href="Style.css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -15,9 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <style type="text/css">
-        .roundside{
-            border-radius: 25px;
-        }
+    .roundside{
+        border-radius: 25px;
+    }
     </style>
 </head>
 <body id="b">
@@ -31,105 +28,67 @@
 </div>
 
 
-    <div class="container-fluid">
+<div class="container-fluid">
     <nav class="navbar navbar-expand-md py-3 navbar-light" id="nav">
         <div class="container-fluid">
-            <div class="navbar-header col-md-5">
-                <a class="navbar-brand" href="#" id="modalbegin"><b>Link Sharing</b></a>
+            <div class="navbar-header col-md-4">
+                <a class="navbar-brand" href="/dashboard/dashboard" id="modalbegin"><b>Link Sharing</b></a>
             </div>
-            %{--<ul class="nav navbar-nav">--}%
-                %{--<li class="active"><a href="#">Home</a></li>--}%
-                %{--<li><a href="#">Page 1</a></li>--}%
-                %{--<li><a href="#">Page 2</a></li>--}%
-            %{--</ul>--}%
-            <div class="col-md-7">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <form class="navbar-form navbar d-flex" action="/action_page.php">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="button">Search</button>
-                    </form>
-                </li>
-            %{--<ul class="nav navbar-nav navbar-right">--}%
-                    %{--<span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal"></span>--}%
-                    %{--<li><a href="#"><span class="glyphicon glyphicon-chat-fill"></span></a></li>--}%
+            <div class="col-md-8">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form class="navbar-form navbar d-flex" action="/action_page.php">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="button">Search</button>
+                        </form>
+                    </li>
                     <li>
 
-                    <a href="#" class="icon" id="modal" data-toggle="modal" data-target="#exampleModalCenter">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16" loading="lasy" onclick="getElementById('exampleModalCenter').style.display='block'">
-                        <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
-                    </svg>
-                    </a>
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <div class="col-md-12">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Create Topic</h5>
-                                    </div>
-                                    %{--<div class="col-md-1">--}%
-                                        %{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}%
-                                            %{--<span aria-hidden="true">&times;</span>--}%
-                                        %{--</button>--}%
-                                    %{--</div>--}%
-                                </div>
-                                <div class="modal-body">
-                                    <g:form controller="dashboard" action="topic" name="create-topic" method="POST" params="[id: object.id]">
-                                        <div class="container" style="padding:10px">
-                                            <div class="form-group">
-                                                <label for="topicName">Name:</label>
-                                                <g:textField name="topicName" class="input" id="topicName" />
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <lable for="topicVisible">Visibility:</lable>
-                                                <select class="box"  name="topicVisible" >
-                                                    <option value="Public" selected>Public</option>
-                                                    <option value="Private">Private</option>
-                                                </select>
-                                            </div>
-                                            <br>
-                                            <div class="modal-footer">
-                                                <g:submitButton name="create-topic" value="Save"  class="btn btn-secondary" id="button" action="topic" style="float: right; margin-right: 4px;"/>
-                                                <input type="button" value="Cancel" class="submit btn btn-secondary" id="button" data-dismiss="modal" style="float:right; margin-right:4px;" onclick="document.getElementById('modal').style.display='none'">
-
-                                            </div>
+                        <a href="#" class="icon" id="modal" data-toggle="modal" data-target="#exampleModalCenter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16" loading="lasy" onclick="getElementById('exampleModalCenter').style.display='block'">
+                                <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
+                            </svg>
+                        </a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="col-md-12">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Create Topic</h5>
                                         </div>
-                                    </g:form>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <g:form controller="dashboard" action="topic" name="create-topic" method="POST" params="[id: usr]">
+                                            <div class="container" style="padding:10px">
+                                                <div class="form-group">
+                                                    <label for="topicName">Name:</label>
+                                                    <g:textField name="topicName" class="input" id="topicName" />
+                                                </div>
+                                                <br>
+                                                <div class="form-group">
+                                                    <lable for="topicVisible">Visibility:</lable>
+                                                    <select class="box"  name="topicVisible" >
+                                                        <option value="Public" selected>Public</option>
+                                                        <option value="Private">Private</option>
+                                                    </select>
+                                                </div>
+                                                <br>
+                                                <div class="modal-footer">
+                                                    <g:submitButton name="create-topic" value="Save"  class="btn btn-secondary" id="button" action="topic" style="float: right; margin-right: 4px;"/>
+                                                    <input type="button" value="Cancel" class="submit btn btn-secondary" id="button" data-dismiss="modal" style="float:right; margin-right:4px;" >
+
+                                                </div>
+                                            </div>
+                                        </g:form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    %{--<div class="modal-topic">--}%
-                        %{--<div id="Modal-topic" class="modal">--}%
-                            %{--<div class="modal-content">--}%
-                                %{--<div class="mh">Create Topic</div>--}%
-                                %{--<g:form controller="dashboard" action="topic" name="create-topic" params="[id: object.id]">--}%
-                                    %{--<div class="container" style="padding:10px">--}%
-                                    %{--<div class="form-group">--}%
-                                        %{--<label for="topicName">Name:</label>--}%
-                                        %{--<g:textField name="topicName" class="input" id="topicName"></g:textField>--}%
-                                    %{--</div>--}%
-                                    %{--<br><br>--}%
-                                    %{--<div class="form-group">--}%
-                                        %{--<lable for="topicVisible">Visibility:</lable>--}%
-                                        %{--<select class="box"  name="topicVisible" >--}%
-                                            %{--<option value="Public" selected>Public</option>--}%
-                                            %{--<option value="Private">Private</option>--}%
-                                        %{--</select>--}%
-                                    %{--</div>--}%
-                                    %{--<br><br>--}%
-                                    %{--<input type="button" value="cancel" class="submit" style="float:right; margin-right:4px;" onclick="document.getElementById('Modal-topic').style.display='none'">--}%
-                                    %{--<g:submitButton name="create-topic" value="Save"  class="submit" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"></g:submitButton><br><br>--}%
-                                %{--</div>--}%
-                                %{--</g:form>--}%
-                            %{--</div>--}%
-                        %{--</div>--}%
-                    %{--</div>--}%
-                </li>
+                    </li>
                     <br>
                     <br>
                     <li>
@@ -143,27 +102,19 @@
                         <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
+
                                     <div class="modal-header">
                                         <div class="col-md-12">
-                                            <h5 class="modal-title" id="exampleModalLongTitle1">Share Link</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle1">Send Invitation</h5>
                                         </div>
-                                        %{--<div class="col-md-1">--}%
-                                            %{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}%
-                                                %{--<span aria-hidden="true">&times;</span>--}%
-                                            %{--</button>--}%
-                                        %{--</div>--}%
                                     </div>
+                                    <br>
                                     <div class="modal-body">
-                                        <g:form controller="linkResource" action="linkRes" name="create-topic" params="[id: object.id]">
+                                        <g:form controller="dashboard" action="invitation" name="invite" params="[id: usr]">
                                             <div class="container" style="padding:10px">
                                                 <div class="form-group">
-                                                    <label for="url">Name:</label>
-                                                    <g:textField name="url" class="input" id="url"/>
-                                                </div>
-                                                <br>
-                                                <div class="form-group">
-                                                    <label for="description">Description:</label>
-                                                    <g:textArea name="description" class="input" id="description"/>
+                                                    <label for="topicName">Email:</label>
+                                                    <g:textField name="topicName" class="input" id="topicName"/>
                                                 </div>
                                                 <br>
                                                 <div class="form-group" >
@@ -173,7 +124,7 @@
                                                 <br>
                                                 <div class="modal-footer">
                                                     <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
-                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" onclick="document.getElementById('modal').style.display='none'">
+                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" >
 
                                                 </div>
                                             </div>
@@ -195,39 +146,40 @@
                         <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
+
                                     <div class="modal-header">
                                         <div class="col-md-12">
-                                            <h5 class="modal-title" id="exampleModalLongTitle2">Share Document</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle2">Share Link</h5>
                                         </div>
-                                        %{--<div class="col-md-1">--}%
-                                            %{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}%
-                                                %{--<span aria-hidden="true">&times;</span>--}%
-                                            %{--</button>--}%
-                                        %{--</div>--}%
                                     </div>
                                     <div class="modal-body">
-                                        <g:form controller="dashboard" action="topic" name="create-topic" params="[id: object.id]">
+                                    %{--${usr.email}--}%
+                                        <g:form controller="dashboard" action="linkRes" name="linkResource" params="[id: usr]">
                                             <div class="container" style="padding:10px">
                                                 <div class="form-group">
-                                                    <label for="topicName">Name:</label>
-                                                    <g:textField name="topicName" class="input" id="topicName"/>
+                                                    <label for="url">Link :</label>
+                                                    <g:textField name="url" class="input" id="url"/>
                                                 </div>
                                                 <br>
                                                 <div class="form-group">
-                                                    <lable for="topicVisible">Visibility:</lable>
-                                                    <select class="box"  name="topicVisible" >
-                                                        <option value="Public" selected>Public</option>
-                                                        <option value="Private">Private</option>
-                                                    </select>
+                                                    <label for="description">Description :</label>
+                                                    <g:textArea name="description" class="input" id="description"/>
+                                                </div>
+                                                <br>
+                                                <div class="form-group" >
+                                                    <lable for="topic">Topic :</lable>
+                                                    <g:select optionKey="id" optionValue="topicName" from="${company.Topic.list()}" name="topic"/>
                                                 </div>
                                                 <br>
                                                 <div class="modal-footer">
                                                     <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
-                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" onclick="document.getElementById('modal').style.display='none'">
+                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;">
+
                                                 </div>
                                             </div>
                                         </g:form>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -244,46 +196,52 @@
                         <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle3" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
+
                                     <div class="modal-header">
                                         <div class="col-md-12">
-                                            <h5 class="modal-title" id="exampleModalLongTitle3">Send Invitation</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle3">Share Document</h5>
                                         </div>
-                                        %{--<div class="col-md-1">--}%
-                                            %{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}%
-                                                %{--<span aria-hidden="true">&times;</span>--}%
-                                            %{--</button>--}%
-                                        %{--</div>--}%
                                     </div>
-                                    <br>
                                     <div class="modal-body">
-                                        <g:form controller="dashboard" action="topic" name="create-topic" params="[id: object.id]">
+                                        <g:form controller="dashboard" action="docRes" name="documentResource" params="[id: usr]">
                                             <div class="container" style="padding:10px">
                                                 <div class="form-group">
-                                                    <label for="topicName">Email:</label>
-                                                    <g:textField name="topicName" class="input" id="topicName"/>
+                                                    <div class="col-md-4">
+                                                        <label>Document :</label>%{--<label>Document :</label> label for="document"--}%
+                                                    </div>
+
+                                                    %{--<g:textField name="document" class="input" id="document"/>--}%
+                                                    <div class="col-md-8">
+                                                        <g:form action="upload" enctype="multipart/form-data" useToken="true">
+
+                                                            <span class="button">
+                                                                <input type="file" name="photo"/>
+                                                                <input type="submit" class="upload" value="upload"/>
+
+                                                            </span>
+
+                                                        </g:form>
+                                                    </div>
                                                 </div>
-                                                %{--<br>--}%
-                                                %{--<div class="form-group">--}%
-                                                    %{--<lable for="topicVisible">Visibility:</lable>--}%
-                                                    %{--<select class="box"  name="topicVisible" >--}%
-                                                        %{--<option value="Public" selected>Public</option>--}%
-                                                        %{--<option value="Private">Private</option>--}%
-                                                    %{--</select>--}%
-                                                %{--</div>--}%
+                                                <br>
+                                                <div class="form-group">
+                                                    <label for="description">Description :</label>
+                                                    <g:textArea name="description" class="input" id="description"/>
+                                                </div>
                                                 <br>
                                                 <div class="form-group" >
-                                                    <lable for="topicVisible">Topic:</lable>
+                                                    <lable for="topic">Topic :</lable>
                                                     <g:select optionKey="id" optionValue="topicName" from="${company.Topic.list()}" name="topic"/>
                                                 </div>
                                                 <br>
                                                 <div class="modal-footer">
                                                     <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
-                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" onclick="document.getElementById('modal').style.display='none'">
-
+                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" >
                                                 </div>
                                             </div>
                                         </g:form>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -291,7 +249,7 @@
                     %{--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>--}%
 
                     <li class="nav navbar-nav navbar-right" id="modalend">
-                        <a href="#" class="icon">
+                        <a href="/profile/prof" class="icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
@@ -301,120 +259,29 @@
                     <li>
                         <div class="dropdown show">
                             <a class="btn btn-primary dropdown-toggle icon" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                User
+                                ${usr.userName}
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <g:link controller="profile" action="prof" params="[id: object.id]" name="User" class="dropdown-item ">Profile</g:link>
+                                <g:link controller="profile" action="editProfile" params="[id: usr]" name="User" class="dropdown-item ">Profile</g:link>
                                 %{--<a class="dropdown-item" href="#" >Profile</a>--}%
-                                <g:link controller="profile" action="users1" params="[id: object.id]" name="Users" class="dropdown-item ">Users</g:link>
+                                <g:link controller="profile" action="users1" params="[id: usr]" name="Users" class="dropdown-item ">Users</g:link>
                                 %{--<a class="dropdown-item" href="#" >Users</a>--}%
-                                <g:link controller="topic" action="topics" params="[id: object.id]" name="Topics" class="dropdown-item ">Topics</g:link>
+                                <g:link controller="profile" action="topics" params="[id: usr]" name="Topics" class="dropdown-item ">Topics</g:link>
                                 %{--<a class="dropdown-item" href="#">Topics</a>--}%
-                                <g:link controller="topic" action="posts" params="[id: object.id]" name="Posts" class="dropdown-item ">Posts</g:link>
+                                <g:link controller="profile" action="posts" params="[id: usr]" name="Posts" class="dropdown-item ">Posts</g:link>
                                 %{--<a class="dropdown-item" href="#">Posts</a>--}%
                                 %{--<a class="dropdown-item" href="#">Logout</a>--}%
-                                <g:link controller="dummy" action="register" params="[id: object.id]" name="Topic" class="dropdown-item ">Logout</g:link>
+                                <g:link controller="dummy" action="logout" params="[id: usr]" name="Logout" class="dropdown-item ">Logout</g:link>
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
-            %{--<form class="d-flex">--}%
-                %{--<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">--}%
-                %{--<button class="btn btn-outline-success" type="submit">Search</button>--}%
-            %{--</form>--}%
-            <!-- Collect the nav links, forms, and other content for toggling -->
-
-    %{--<div class="container-fluid">--}%
-        %{--<div class="row">--}%
-            %{--<div class="col-md-12">--}%
-                %{--<nav class="navbar navbar-default" role="navigation">--}%
-                    %{--<!-- Brand and toggle get grouped for better mobile display -->--}%
-                    %{--<div class="navbar-header">--}%
-                        %{--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">--}%
-                            %{--<span class="sr-only">Toggle navigation</span>--}%
-                            %{--<span class="icon-bar"></span>--}%
-                            %{--<span class="icon-bar"></span>--}%
-                            %{--<span class="icon-bar"></span>--}%
-                        %{--</button>--}%
-                        %{--<a class="navbar-brand" href="http://www.jquery2dotnet.com">Brand</a>--}%
-                    %{--</div>--}%
-                    %{--<!-- Collect the nav links, forms, and other content for toggling -->--}%
-                    %{--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">--}%
-                        %{--<ul class="nav navbar-nav">--}%
-                            %{--<li class="active"><a href="http://www.jquery2dotnet.com">Home</a></li>--}%
-                            %{--<li><a href="http://www.jquery2dotnet.com">About Us</a></li>--}%
-                            %{--<li class="dropdown">--}%
-                                %{--<a href="http://www.jquery2dotnet.com" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>--}%
-                                %{--<ul class="dropdown-menu">--}%
-                                    %{--<li><a href="http://www.jquery2dotnet.com">Action</a></li>--}%
-                                    %{--<li><a href="http://www.jquery2dotnet.com">Another action</a></li>--}%
-                                    %{--<li><a href="http://www.jquery2dotnet.com">Something else here</a></li>--}%
-                                    %{--<li class="divider"></li>--}%
-                                    %{--<li><a href="http://www.jquery2dotnet.com">Separated link</a></li>--}%
-                                    %{--<li class="divider"></li>--}%
-                                    %{--<li><a href="http://www.jquery2dotnet.com">One more separated link</a></li>--}%
-                                %{--</ul>--}%
-                            %{--</li>--}%
-                        %{--</ul>--}%
-                        %{--<form class="navbar-form navbar-left" role="search">--}%
-                            %{--<div class="form-group">--}%
-                                %{--<input type="text" class="form-control" placeholder="Search">--}%
-                            %{--</div>--}%
-                            %{--<button type="submit" class="btn btn-default">Submit</button>--}%
-                        %{--</form>--}%
-                        %{--<ul class="nav navbar-nav navbar-right">--}%
-                            %{--<li><a href="http://www.jquery2dotnet.com">Sign Up</a></li>--}%
-                            %{--<li class="dropdown">--}%
-                                %{--<a href="http://www.jquery2dotnet.com" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>--}%
-                                %{--<ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">--}%
-                                    %{--<li>--}%
-                                        %{--<div class="row">--}%
-                                            %{--<div class="col-md-12">--}%
-                                                %{--<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">--}%
-                                                    %{--<div class="form-group">--}%
-                                                        %{--<label class="sr-only" for="exampleInputEmail2">Email address</label>--}%
-                                                        %{--<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>--}%
-                                                    %{--</div>--}%
-                                                    %{--<div class="form-group">--}%
-                                                        %{--<label class="sr-only" for="exampleInputPassword2">Password</label>--}%
-                                                        %{--<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>--}%
-                                                    %{--</div>--}%
-                                                    %{--<div class="checkbox">--}%
-                                                        %{--<label>--}%
-                                                            %{--<input type="checkbox"> Remember me--}%
-                                                        %{--</label>--}%
-                                                    %{--</div>--}%
-                                                    %{--<div class="form-group">--}%
-                                                        %{--<button type="submit" class="btn btn-success btn-block">Sign in</button>--}%
-                                                    %{--</div>--}%
-                                                %{--</form>--}%
-                                                           %{--<div class="form-group">--}%
-                                                           %{--<div class="form-group">--}%
-                              %{--<                        %{--<div class="form-group">--}%
-                            %{--/div>--                        --}%%{--<div class="form-group">--}%
-                            %{--}%
-                                        %{--</div>--}%
-                                    %{--</li>--}%
-                                    %{--<li class="divider"></li>--}%
-                                    %{--<li>--}%
-                                        %{--<input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google">--}%
-                                        %{--<input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter">--}%
-                                    %{--</li>--}%
-                                %{--</ul>--}%
-                            %{--</li>--}%
-                        %{--</ul>--}%
-                    %{--</div>--}%
-                    %{--<!-- /.navbar-collapse -->--}%
-                %{--</nav>--}%
-            %{--</div>--}%
-        %{--</div>--}%
-    %{--</div>--}%
         </div>
     </nav>
-        <br>
-    </div>
+    <br>
+</div>
 <br>
 <div class="container-fluid">
     <div class="row">
@@ -425,15 +292,37 @@
                     <div class="card roundside" id="rows1">
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <div class="media-left">
-                                    <asset:image src="profile.jpg" class="media-object"/>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <asset:image src="profile.jpg" class="media-object1"/>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <h3 class="media-heading">${usr.firstName+" "+usr.lastName}</h3>
+                                        <h6>${"@"+usr.userName}</h6>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h6>Subscriptions</h6>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>Topics</h6>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <a href="/profile/prof" class="col-md-6">
+                                                <div >
+                                                    <h6>${company.Subscription.countByUser(usr)}</h6>
+                                                </div>
+                                            </a>
+                                            <a href="/profile/prof" class="col-md-6">
+                                                <div>
+                                                    <h6>${company.Topic.countByCreatedBy(usr)}</h6>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
                 </div>
@@ -444,19 +333,58 @@
                 <!-- Nested media object -->
                 <div class="container-fluid">
                     <div class="card" id="rows1"  style="border-radius: 25px; padding: auto">
-                        <div class="card-header">Subscriptions
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h5>Subscriptions</h5>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#">View All</a>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <div class="media-left">
-                                    <asset:image src="profile.jpg" class="media-object"/>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
+                                <g:each in="${company.Subscription.list()}">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <asset:image src="profile.jpg" class="media-object"/>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <a href="/profile/topics">
+                                                <h6 class="media-heading">
+                                                    ${it.topic.topicName}
+                                                </h6>
+                                            </a>
+                                            <br>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h6>${"@"+usr.userName}</h6>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h6>Subscriptions</h6>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h6>Post</h6>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4" href="#">
+                                                    Unsubscribe
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h6>${company.Subscription.countByTopic(Topic.findById(it.topic.id))}</h6>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h6>${company.Resources.countByTopic(Topic.findById(it.topic.id))}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </g:each>
                             </div>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
                         </div>
                     </div>
                 </div>
@@ -466,31 +394,54 @@
                 <div class="container-fluid">
                     <div class="card" id="rows1"  style="border-radius: 25px; padding: auto">
                         <div class="card-header">
-                            Trending topics
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h5>Trending topics</h5>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <div class="media-left">
-                                    <asset:image src="profile.jpg" class="media-object"/>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </div>
-                            <hr>
-                            <!-- Nested media object -->
-                            <div class="media">
-                                <div class="media-left">
-                                    <asset:image src="profile.jpg" class="media-object"/>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </div>
+                                <g:each in="${company.Subscription.list()}">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <asset:image src="profile.jpg" class="media-object"/>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <a href="/profile/topics">
+                                                <h6 class="media-heading">
+                                                    ${it.topic.topicName}
+                                                </h6>
+                                            </a>
+                                            <br>
 
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h6>${"@"+usr.userName}</h6>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h6>Subscriptions</h6>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h6>Post</h6>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4" href="#">
+                                                    Unsubscribe
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h6>${company.Subscription.countByTopic(Topic.findById(it.topic.id))}</h6>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <h6>${company.Resources.countByTopic(Topic.findById(it.topic.id))}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </g:each>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -500,38 +451,96 @@
             <div class="row">
                 <div class="container-fluid">
                     <div class="card" id="cards1" style="border-radius: 25px; padding: auto">
-                        <div class="card-header">
-                            Inbox
-                        </div>
-                        <div class="card-body" id="row1" >
-                            <div class="media">
-                                <div class="media-left">
-                                    <asset:image src="profile.jpg" class="media-object"/>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </div>
-                            <!-- Nested media object -->
-                            <hr>
-                            <div class="media">
-                                <div class="media-left">
-                                    <asset:image src="profile.jpg" class="media-object"/>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                </div>
-                            </div>
 
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Inbox</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <form class="d-flex" action="/action_page.php">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Search">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" id="button">Search</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" id="row1">
+                            <div class="media">
+                                <g:each in="${company.Resources.list()}">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <asset:image src="profile.jpg" class="media-object1"/>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <h6>${usr.firstName+" "+usr.lastName}</h6>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h6>${"@"+usr.userName}</h6>
+                                                </div>
+                                            </div>
+                                            <p>${it.description}</p>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-11">
+                                                    <div class="row">
+                                                        <div class="col-md-3" href="#">
+                                                            Download
+                                                        </div>
+                                                        <div class="col-md-3" href="${company.LinkResource.findByResources(it).url}">
+                                                            View full site
+                                                        </div>
+                                                        <div class="col-md-3" href="#">
+                                                            Mark as read
+                                                        </div>
+                                                        <a href="/profile/posts" class="col-md-3">
+                                                            View post
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            %{--<a href="/topic/posts">--}%
+                                                %{--<h6 class="media-heading">--}%
+                                                    %{--${it.topic.topicName}--}%
+                                                %{--</h6>--}%
+                                            %{--</a>--}%
+                                            %{--<br>--}%
+
+                                            %{--<div class="row">--}%
+                                                %{--<div class="col-md-4">--}%
+                                                    %{--<h6>${"@"+usr.userName}</h6>--}%
+                                                %{--</div>--}%
+                                                %{--<div class="col-md-4">--}%
+                                                    %{--<h6>Subscriptions</h6>--}%
+                                                %{--</div>--}%
+                                                %{--<div class="col-md-4">--}%
+                                                    %{--<h6>Post</h6>--}%
+                                                %{--</div>--}%
+                                            %{--</div>--}%
+                                            %{--<div class="row">--}%
+                                                %{--<div class="col-md-4" href="#">--}%
+                                                    %{--Unsubscribe--}%
+                                                %{--</div>--}%
+                                                %{--<div class="col-md-4">--}%
+                                                    %{--<h6>${company.Subscription.countByTopic(Topic.findById(it.topic.id))}</h6>--}%
+                                                %{--</div>--}%
+                                                %{--<div class="col-md-4">--}%
+                                                    %{--<h6>${company.Resources.countByTopic(Topic.findById(it.topic.id))}</h6>--}%
+                                                %{--</div>--}%
+                                            %{--</div>--}%
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </g:each>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <br>
-                    <br>
                 </div>
                 <!-- Nested media object -->
             </div>
@@ -539,12 +548,10 @@
     </div>
 </div>
 <script>
-        setTimeout(function(){
-            $("#flash").css("display",'none');
-        }, 1500 ); // 1.5 sec
-        // $("#flash").fadeTo(2000, 500).slideUp(500, function(){
-        //     $("#flash").slideUp(500);
-        // });
+    setTimeout(function(){
+        $("#flash").css("display",'none');
+    }, 1500 ); // 1.5 sec
+
 
 </script>
 </body>
