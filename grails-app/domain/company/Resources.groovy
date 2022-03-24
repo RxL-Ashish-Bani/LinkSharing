@@ -3,7 +3,7 @@ package company
 
 class Resources {
     String description
-    Dummy createdBy
+//    Dummy createdBy
     Date dateCreated
     Date lastUpdated
     static constraints = {

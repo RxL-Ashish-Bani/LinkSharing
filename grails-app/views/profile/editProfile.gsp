@@ -1,8 +1,8 @@
-<%@ page import="company.Resources; company.Topic" %>
+<%@ page import="company.Subscription; company.Topic" %>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-    <title>User Profile</title>
+    <title>Edit Profile</title>
     <asset:stylesheet href="Style.css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -17,24 +17,24 @@
     }
     </style>
 </head>
-<body id="b">
-<div id="flash">
-    <g:if test="${flash.message}">
-        <div class="alert alert-warning alert-dismissible alert-danger fade show" role="alert">
-            <strong>${flash.message}!</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </g:if>
-</div>
-
-
+<body id="b" style="background-color: #1f273c">
+<g:if test="${flash.message}">
+    <div class="alert alert-warning alert-dismissible fade show" id="flash" role="alert">
+        <strong>${flash.message}!</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+%{--</g:if><g:if test="${flash.error}">    <div class="alert alert-warning alert-dismissible fade show" role="alert">--}%
+%{--<div class="alert alert-danger" role="status">${flash.error}</div>--}%
+%{--<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>--}%
+%{--</div>--}%
+</g:if>
 <div class="container-fluid">
     <nav class="navbar navbar-expand-md py-3 navbar-light" id="nav">
         <div class="container-fluid">
-            <div class="navbar-header col-md-4">
+            <div class="navbar-header col-md-6">
                 <a class="navbar-brand" href="/dashboard/dashboard" id="modalbegin"><b>Link Sharing</b></a>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form class="navbar-form navbar d-flex" action="/action_page.php">
@@ -44,10 +44,8 @@
                             <button type="submit" class="btn btn-primary" id="button">Search</button>
                         </form>
                     </li>
-                    %{--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>--}%
-
                     <li class="nav navbar-nav navbar-right" id="modalend">
-                        <a href="/profile/prof" class="icon">
+                        <a href="#" class="icon">
                             <g:if test="${usrId.photo!=null}">
                                 <asset:image src="/Photos/${usrId.userName}.png" class="media-object2"/>
                             </g:if>
@@ -65,16 +63,17 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <g:link controller="profile" action="editProfile" params="[id: usrId]" name="User" class="dropdown-item ">Profile</g:link>
                                 %{--<a class="dropdown-item" href="#" >Profile</a>--}%
-                                %{--<g:link controller="profile" action="users1" params="[id: usrId]" name="Users" class="dropdown-item ">Users</g:link>--}%
+                                %{--<g:link controller="profile" action="users1" params="[id: usr]" name="Users" class="dropdown-item ">Users</g:link>--}%
                                 %{--<a class="dropdown-item" href="#" >Users</a>--}%
-                                %{--<g:link controller="profile" action="topics" params="[id: usrId]" name="Topics" class="dropdown-item ">Topics</g:link>--}%
+                                %{--<g:link controller="topic" action="topics" params="[id: usr]" name="Topics" class="dropdown-item ">Topics</g:link>--}%
                                 %{--<a class="dropdown-item" href="#">Topics</a>--}%
-                                %{--<g:link controller="profile" action="posts" params="[id: usrId]" name="Posts" class="dropdown-item ">Posts</g:link>--}%
+                                %{--<g:link controller="topic" action="posts" params="[id: usr]" name="Posts" class="dropdown-item ">Posts</g:link>--}%
                                 %{--<a class="dropdown-item" href="#">Posts</a>--}%
                                 %{--<a class="dropdown-item" href="#">Logout</a>--}%
                                 <g:link controller="dummy" action="logout" params="[id: usrId]" name="Logout" class="dropdown-item ">Logout</g:link>
                             </div>
                         </div>
+                    </li>
                     </li>
                 </ul>
             </div>
@@ -82,6 +81,7 @@
     </nav>
     <br>
 </div>
+
 <br>
 <div class="container-fluid">
     <div class="row">
@@ -93,7 +93,7 @@
                         <div class="card-body" id="row1">
                             <div class="media">
                                 <div class="row">
-                                    <div class="col-md-3" >
+                                    <div class="col-md-3">
                                         <g:if test="${usrId.photo!=null}">
                                             <asset:image src="/Photos/${usrId.userName}.png" class="media-object1"/>
                                         </g:if>
@@ -114,16 +114,12 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <a href="/profile/prof" class="col-md-6">
-                                                <div>
-                                                    <h6>${company.Subscription.countByUser(usrId)}</h6>
-                                                </div>
-                                            </a>
-                                            <a href="/profile/prof" class="col-md-6">
-                                                <div>
-                                                    <h6>${company.Topic.countByCreatedBy(usrId)}</h6>
-                                                </div>
-                                            </a>
+                                            <div class="col-md-6">
+                                                <h6>${company.Subscription.countByUser(usrId)}</h6>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>${company.Topic.countByCreatedBy(usrId)}</h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -133,68 +129,6 @@
                 </div>
             </div>
             <br>
-            <br>
-            <div class="row">
-                <div class="container-fluid">
-                    <div class="card" id="rows1"  style="border-radius: 25px; padding: auto">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <h5>Trending topics</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body" id="row1">
-                            <div class="media">
-                                <g:each in="${company.Subscription.list(max:5)}">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <g:if test="${it.topic.createdBy.photo!=null}">
-                                                <asset:image src="/Photos/${it.topic.createdBy.userName}.png" class="media-object1"/>
-                                            </g:if>
-                                            <g:else>
-                                                <asset:image src="profile.png" class="media-object1"/>
-                                            </g:else>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <a href="/profile/topics">
-                                                <h6 class="media-heading">
-                                                    ${it.topic.topicName}
-                                                </h6>
-                                            </a>
-                                            <br>
-
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <h6>${"@"+it.topic.createdBy.userName}</h6>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h6>Subscriptions</h6>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h6>Post</h6>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-4" href="#">
-                                                    Unsubscribe
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h6>${company.Subscription.countByTopic(Topic.findById(it.topic.id))}</h6>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h6>${company.Resources.countByTopic(Topic.findById(it.topic.id))}</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </g:each>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <br>
             <div class="row">
                 <!-- Nested media object -->
@@ -202,11 +136,16 @@
                     <div class="card" id="rows1"  style="border-radius: 25px; padding: auto">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-9">
-                                    <h5>Subscriptions</h5>
+                                <div class="col-md-6">
+                                    <h5>Topics</h5>
                                 </div>
-                                <div class="col-md-3">
-                                    %{--<a href="#">View All</a>--}%
+                                <div class="col-md-6">
+                                    %{--<form class="d-flex" action="/action_page.php">--}%
+                                        %{--<div class="form-group">--}%
+                                            %{--<input type="text" class="form-control" placeholder="Search">--}%
+                                        %{--</div>--}%
+                                        %{--<button type="submit" class="btn btn-primary" id="button">Search</button>--}%
+                                    %{--</form>--}%
                                 </div>
                             </div>
                         </div>
@@ -223,7 +162,7 @@
                                             </g:else>
                                         </div>
                                         <div class="col-md-9">
-                                            <a href="/profile/topics">
+                                            <a href="/topic/topics">
                                                 <h6 class="media-heading">
                                                     ${it.topic.topicName}
                                                 </h6>
@@ -263,89 +202,109 @@
             </div>
         </div>
         <div class="col-md-7">
-            <div class="row">
-                <div class="container-fluid">
-                    <div class="card" id="cards1" style="border-radius: 25px; padding: auto">
-
-                        <div class="card-header">
+            <div class="row" >
+                <div class="login-form p-4" id="rows2" >
+                    %{--${object.email}--}%
+                    <g:uploadForm controller="profile" action="editInfo" method="POST" class="row g-3" params="[id: usrId.id]">
+                        <fieldset class="form">
+                            <h4>Profile</h4>
+                            <hr>
+                            <div class="row" >
+                                <label class="col-4">First name </label>
+                                <div class="col-8">
+                                    <input type="text" name="firstName" class="col-8 form-control" required>
+                                </div>
+                            </div>
+                            <br>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h5>Posts</h5>
-                                </div>
-                                <div class="col-md-6">
-                                    %{--<form class="d-flex" action="/action_page.php">--}%
-                                        %{--<div class="form-group">--}%
-                                            %{--<input type="text" class="form-control" placeholder="Search">--}%
-                                        %{--</div>--}%
-                                        %{--<button type="submit" class="btn btn-primary" id="button">Search</button>--}%
-                                    %{--</form>--}%
+                                <label class="col-4">Last name</label>
+                                <div class="col-8">
+                                    <input type="text" name="lastName" class="col-8 form-control" required>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body" id="row1">
-                            <div class="media">
-                                <g:each in="${company.Resources.list(max:5)}">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <g:if test="${it.topic.createdBy.photo!=null}">
-                                                <asset:image src="/Photos/${usrId.userName}.png" class="media-object1"/>
-                                            </g:if>
-                                            <g:else>
-                                                <asset:image src="profile.png" class="media-object1"/>
-                                            </g:else>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <h6>${it.topic.createdBy.firstName+" "+it.topic.createdBy.lastName}</h6>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <h6>${"@"+it.topic.createdBy.userName}</h6>
-                                                </div>
-                                            </div>
-                                            <p>${it.description}</p>
-                                            <div class="row">
-                                                <div class="col-md-1">
-                                                </div>
-                                                <div class="col-md-11">
-                                                    <div class="row">
-                                                        <div class="col-md-3" href="#">
-                                                            Download
-                                                        </div>
-                                                        <a class="col-md-3" href="${company.LinkResource.findByResources(it).url}" target="_blank">
-                                                            View full site
-                                                        </a>
-                                                        <div class="col-md-3" href="#">
-                                                            Mark as read
-                                                        </div>
-                                                        <a href="/profile/posts" class="col-md-3">
-                                                            View post
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </g:each>
+                            <br>
+                            <div class="row">
+                                <label class="col-4">Username</label>
+                                <div class="col-8">
+                                    <input type="text" name="userName" class="col-8 form-control" required>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                            <br>
+                            <div class="row" >
+                                <label class="col-4">
+                                    Photo
+                                </label>
+                                %{--<div class="col-4">--}%
+                                %{--<input type="photo" name="photo" class="form-control">--}%
+                                %{--</div>--}%
+                                <div class="col-8">
+                                    <input type="file" name="photo" id="photo">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-8">
+                                </div>
+                                <div class="col-4">
+                                    <fieldset class="buttons">
+                                        <input type="submit" name="" class="login btn btn-secondary" id="button" value="Update">
+                                    </fieldset>
+                                    %{--<button type="submit" name="login" class="login btn btn-dark float-end">Login</button>--}%
+                                </div>
+                            </div>
+                        </fieldset>
+                    </g:uploadForm>
                 </div>
-                <div class="row">
-                    <br>
-                    <br>
+            </div>
+            <br>
+            <div class="row">
+                <div id="rows2" class="content scaffold-create login-form p-4" role="main">
+                    <g:form controller="profile" action="editPassword" method="Post" class="row g-3" params="[id: usrId.id]" >
+                        <fieldset class="form">
+                            <h4>Change password</h4>
+                            <hr>
+                            <div class="row">
+                                <label class="col-4">Password</label>
+                                <div class="col-8">
+                                    <input type="password" name="password" class="col-8 form-control" required>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <label class="col-4">Confirm password</label>
+                                <div class="col-8">
+                                    <input type="password" name="confirmPassword" class="col-8 form-control" required>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-8">
+                                </div>
+                                %{--<div class="col-4">--}%
+
+                                    %{--<g:actionSubmit value="Update" class="btn btn-secondary" id="button" /> --}%%{--action="editProfile"--}%
+
+                                %{--</div>--}%
+                                <div class="col-4">
+                                    <fieldset class="buttons">
+                                        <input type="submit" name="" class="login btn btn-secondary" id="button" value="Update">
+                                    </fieldset>
+                                    %{--<button type="submit" name="login" class="login btn btn-dark float-end">Login</button>--}%
+                                </div>
+                            </div>
+                        </fieldset>
+                    </g:form>
                 </div>
                 <!-- Nested media object -->
             </div>
         </div>
     </div>
 </div>
+</div>
 <script>
     setTimeout(function(){
         $("#flash").css("display",'none');
     }, 1500 ); // 1.5 sec
-
 
 </script>
 </body>

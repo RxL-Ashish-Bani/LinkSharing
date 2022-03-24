@@ -7,15 +7,15 @@ class Dummy {
     String firstName
     String lastName
     String email
-    Byte photo
+    String photo
     Boolean admin
     Boolean active
     Date dateCreated
     Date lastUpdated
     static constraints = {
         userName nullable: false, blank: false, unique: true
-        password nullable: false, blank: false
-        confirmPassword nullable: false, blank: false
+        password nullable: false, blank: false, minSize: 6
+        confirmPassword nullable: false, blank: false, minSize: 6
         firstName nullable: false
         lastName nullable: false
         email email: true, nullable: false
@@ -28,3 +28,7 @@ class Dummy {
 
     static hasMany = [topic: Topic]
 }
+
+
+
+//session['user'] = company.Dummy
