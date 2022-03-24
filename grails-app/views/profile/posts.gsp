@@ -206,7 +206,12 @@
                             <div class="media">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <asset:image src="profile.jpg" class="media-object1"/>
+                                        <g:if test="${usrId.photo!=null}">
+                                            <asset:image src="/Photos/${usrId.userName}.png" class="media-object1"/>
+                                        </g:if>
+                                        <g:else>
+                                            <asset:image src="profile.png" class="media-object"/>
+                                        </g:else>
                                     </div>
                                     <div class="col-md-9">
                                         <h3 class="media-heading">${usrId.firstName+" "+usrId.lastName}</h3>
@@ -256,7 +261,12 @@
                                 <g:each in="${company.Subscription.list()}">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <asset:image src="profile.jpg" class="media-object"/>
+                                            <g:if test="${usrId.photo!=null}">
+                                                <asset:image src="/Photos/${usrId.userName}.png" class="media-object1"/>
+                                            </g:if>
+                                            <g:else>
+                                                <asset:image src="profile.png" class="media-object"/>
+                                            </g:else>
                                         </div>
                                         <div class="col-md-9">
                                             <a href="/profile/topics">

@@ -10,6 +10,12 @@ class ProfileController {
         render view: "prof", model: [usrId: f]
     }
 
+    def users(){
+        Dummy f =session.getAttribute("users")
+        println "HII"
+        render view: "users", model: [usrId: f]
+    }
+
     def posts(){
 
         Dummy f =session.getAttribute("users")

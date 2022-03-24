@@ -3,6 +3,7 @@ package company
 class DummyController {
 
     def dummyService
+    def fileUploadService
 
     def index() {
 //        respond dummyService.list()
@@ -66,7 +67,6 @@ class DummyController {
     }
 
     def register(){
-        Dummy user=new Dummy(firstName: params.firstName,lastName: params.lastName,password: params.password,confirmPassword: params.confirmPassword,userName: params.userName,email: params.email)
 
         if(params.password!=params.confirmPassword){
             println "NOOOOOO"
@@ -75,7 +75,18 @@ class DummyController {
         }
 
         else {
-            println(params)
+
+            def file=request.getFile('photo')
+            String imageUploadPath="/home/ashishbani/Desktop/Dummy/grails-app/assets/images/Photos/${params.userName}.png"
+            if(file && !file.empty){
+                file.transferTo(new File("${imageUploadPath}"))
+                flash.message="Image uploaded"
+            }
+            else{
+                flash.message="Image not uploaded"
+            }
+
+            Dummy user=new Dummy(firstName: params.firstName,lastName: params.lastName,password: params.password,confirmPassword: params.confirmPassword,userName: params.userName,email: params.email,photo: imageUploadPath, active: false)
             user.save flush: true
             flash.message="User Created"
             render view: "register"
@@ -85,5 +96,6 @@ class DummyController {
         session.invalidate()
         render view: "register"
     }
+
 
 }

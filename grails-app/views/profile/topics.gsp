@@ -2,7 +2,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>Topic Show</title>
     <asset:stylesheet href="Style.css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -162,10 +162,12 @@
 
                     <li class="nav navbar-nav navbar-right" id="modalend">
                         <a href="/profile/prof" class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                            </svg>
+                            <g:if test="${usrId.photo!=null}">
+                                <asset:image src="/Photos/${usrId.userName}.png" class="media-object2"/>
+                            </g:if>
+                            <g:else>
+                                <asset:image src="profile.png" class="media-object2"/>
+                            </g:else>
                         </a>
                     </li>
                     <li>
@@ -214,10 +216,15 @@
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <g:each in="${company.Subscription.list()}">
+                                <g:each in="${company.Subscription.list(max:5)}">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <asset:image src="profile.jpg" class="media-object"/>
+                                            <g:if test="${it.topic.createdBy.photo!=null}">
+                                                <asset:image src="/Photos/${it.topic.createdBy.userName}.png" class="media-object1"/>
+                                            </g:if>
+                                            <g:else>
+                                                <asset:image src="profile.png" class="media-object1"/>
+                                            </g:else>
                                         </div>
                                         <div class="col-md-9">
                                             <a href="/profile/topics">
@@ -271,10 +278,15 @@
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <g:each in="${company.Subscription.list()}">
+                                <g:each in="${company.Subscription.list(max:5)}">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <asset:image src="profile.jpg" class="media-object"/>
+                                            <g:if test="${it.topic.createdBy.photo!=null}">
+                                                <asset:image src="/Photos/${it.topic.createdBy.userName}.png" class="media-object1"/>
+                                            </g:if>
+                                            <g:else>
+                                                <asset:image src="profile.png" class="media-object1"/>
+                                            </g:else>
                                         </div>
                                         <div class="col-md-9">
                                             <a href="/profile/topics">
@@ -286,7 +298,7 @@
 
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <h6>${"@"+usrId.userName}</h6>
+                                                    <h6>${"@"+it.topic.createdBy.userName}</h6>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <h6>Subscriptions</h6>
@@ -338,18 +350,23 @@
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <g:each in="${company.Resources.list()}">
+                                <g:each in="${company.Resources.list(max:5)}">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <asset:image src="profile.jpg" class="media-object1"/>
+                                            <g:if test="${it.topic.createdBy.photo!=null}">
+                                                <asset:image src="/Photos/${usrId.userName}.png" class="media-object1"/>
+                                            </g:if>
+                                            <g:else>
+                                                <asset:image src="profile.png" class="media-object1"/>
+                                            </g:else>
                                         </div>
                                         <div class="col-md-9">
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <h6>${usrId.firstName+" "+usrId.lastName}</h6>
+                                                    <h6>${it.topic.createdBy.firstName+" "+it.topic.createdBy.lastName}</h6>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <h6>${"@"+usrId.userName}</h6>
+                                                    <h6>${"@"+it.topic.createdBy.userName}</h6>
                                                 </div>
                                             </div>
                                             <p>${it.description}</p>
@@ -361,9 +378,9 @@
                                                         <div class="col-md-3" href="#">
                                                             Download
                                                         </div>
-                                                        <div class="col-md-3" href="${company.LinkResource.findByResources(it).url}">
+                                                        <a class="col-md-3" href="${company.LinkResource.findByResources(it).url}" target="_blank">
                                                             View full site
-                                                        </div>
+                                                        </a>
                                                         <div class="col-md-3" href="#">
                                                             Mark as read
                                                         </div>

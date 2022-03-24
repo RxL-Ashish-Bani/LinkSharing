@@ -1,10 +1,10 @@
-<%@ page import="company.Topic" %>
+<%@ page import="company.Dummy; company.Subscription; company.Resources; company.Topic" %>
 <!doctype html>
 <html>
 <head>
-    <title>Users</title>
+    <title>Dashboard</title>
     <asset:stylesheet href="Style.css"/>
-
+    <asset:javascript src="JS.js"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -20,7 +20,7 @@
 <body id="b">
 <div id="flash">
     <g:if test="${flash.message}">
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="alert alert-warning alert-dismissible alert-danger fade show" role="alert">
             <strong>${flash.message}!</strong>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -31,10 +31,10 @@
 <div class="container-fluid">
     <nav class="navbar navbar-expand-md py-3 navbar-light" id="nav">
         <div class="container-fluid">
-            <div class="navbar-header col-md-5">
-                <a class="navbar-brand" href="#" id="modalbegin"><b>Link Sharing</b></a>
+            <div class="navbar-header col-md-4">
+                <a class="navbar-brand" href="/dashboard/dashboard" id="modalbegin"><b>Link Sharing</b></a>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form class="navbar-form navbar d-flex" action="/action_page.php">
@@ -44,9 +44,6 @@
                             <button type="submit" class="btn btn-primary" id="button">Search</button>
                         </form>
                     </li>
-                    %{--<ul class="nav navbar-nav navbar-right">--}%
-                    %{--<span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#myModal"></span>--}%
-                    %{--<li><a href="#"><span class="glyphicon glyphicon-chat-fill"></span></a></li>--}%
                     <li>
 
                         <a href="#" class="icon" id="modal" data-toggle="modal" data-target="#exampleModalCenter">
@@ -62,14 +59,10 @@
                                         <div class="col-md-12">
                                             <h5 class="modal-title" id="exampleModalLongTitle">Create Topic</h5>
                                         </div>
-                                        %{--<div class="col-md-1">--}%
-                                        %{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}%
-                                        %{--<span aria-hidden="true">&times;</span>--}%
-                                        %{--</button>--}%
-                                        %{--</div>--}%
                                     </div>
                                     <div class="modal-body">
-                                        <g:form controller="dashboard" action="topic" name="create-topic" method="POST" params="[id: object.id]">
+
+                                        <g:form controller="dashboard" action="topic" name="create-topic" method="POST" params="[id: usrId]">
                                             <div class="container" style="padding:10px">
                                                 <div class="form-group">
                                                     <label for="topicName">Name:</label>
@@ -86,7 +79,7 @@
                                                 <br>
                                                 <div class="modal-footer">
                                                     <g:submitButton name="create-topic" value="Save"  class="btn btn-secondary" id="button" action="topic" style="float: right; margin-right: 4px;"/>
-                                                    <input type="button" value="Cancel" class="submit btn btn-secondary" id="button" data-dismiss="modal" style="float:right; margin-right:4px;" onclick="document.getElementById('modal').style.display='none'">
+                                                    <input type="button" value="Cancel" class="submit btn btn-secondary" id="button" data-dismiss="modal" style="float:right; margin-right:4px;" >
 
                                                 </div>
                                             </div>
@@ -109,27 +102,19 @@
                         <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
+
                                     <div class="modal-header">
                                         <div class="col-md-12">
-                                            <h5 class="modal-title" id="exampleModalLongTitle1">Share Link</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle1">Send Invitation</h5>
                                         </div>
-                                        %{--<div class="col-md-1">--}%
-                                        %{--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--}%
-                                        %{--<span aria-hidden="true">&times;</span>--}%
-                                        %{--</button>--}%
-                                        %{--</div>--}%
                                     </div>
+                                    <br>
                                     <div class="modal-body">
-                                        <g:form controller="linkResource" action="linkRes" name="create-topic" params="[id: object.id]">
+                                        <g:form controller="dashboard" action="invitation" name="invite" params="[id: usrId]">
                                             <div class="container" style="padding:10px">
                                                 <div class="form-group">
-                                                    <label for="url">Name:</label>
-                                                    <g:textField name="url" class="input" id="url"/>
-                                                </div>
-                                                <br>
-                                                <div class="form-group">
-                                                    <label for="description">Description:</label>
-                                                    <g:textArea name="description" class="input" id="description"/>
+                                                    <label for="topicName">Email:</label>
+                                                    <g:textField name="topicName" class="input" id="topicName"/>
                                                 </div>
                                                 <br>
                                                 <div class="form-group" >
@@ -139,7 +124,7 @@
                                                 <br>
                                                 <div class="modal-footer">
                                                     <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
-                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" onclick="document.getElementById('modal').style.display='none'">
+                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" >
 
                                                 </div>
                                             </div>
@@ -161,34 +146,39 @@
                         <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
+
                                     <div class="modal-header">
                                         <div class="col-md-12">
-                                            <h5 class="modal-title" id="exampleModalLongTitle2">Share Document</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle2">Share Link</h5>
                                         </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <g:form controller="dashboard" action="topic" name="create-topic" params="[id: object.id]">
+                                    <div class="modal-body">%{--${usrId.email}--}%
+                                        <g:form controller="dashboard" action="linkRes" name="linkResource" params="[id: usrId]">
                                             <div class="container" style="padding:10px">
                                                 <div class="form-group">
-                                                    <label for="topicName">Name:</label>
-                                                    <g:textField name="topicName" class="input" id="topicName"/>
+                                                    <label for="url">Link :</label>
+                                                    <g:textField name="url" class="input" id="url"/>
                                                 </div>
                                                 <br>
                                                 <div class="form-group">
-                                                    <lable for="topicVisible">Visibility:</lable>
-                                                    <select class="box"  name="topicVisible" >
-                                                        <option value="Public" selected>Public</option>
-                                                        <option value="Private">Private</option>
-                                                    </select>
+                                                    <label for="description">Description :</label>
+                                                    <g:textArea name="description" class="input" id="description"/>
+                                                </div>
+                                                <br>
+                                                <div class="form-group" >
+                                                    <lable for="topic">Topic :</lable>
+                                                    <g:select optionKey="id" optionValue="topicName" from="${company.Topic.list()}" name="topic"/>
                                                 </div>
                                                 <br>
                                                 <div class="modal-footer">
                                                     <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
-                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" onclick="document.getElementById('modal').style.display='none'">
+                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;">
+
                                                 </div>
                                             </div>
                                         </g:form>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -205,48 +195,55 @@
                         <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle3" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
+
                                     <div class="modal-header">
                                         <div class="col-md-12">
-                                            <h5 class="modal-title" id="exampleModalLongTitle3">Send Invitation</h5>
+                                            <h5 class="modal-title" id="exampleModalLongTitle3">Share Document</h5>
                                         </div>
                                     </div>
-                                    <br>
                                     <div class="modal-body">
-                                        <g:form controller="dashboard" action="topic" name="create-topic" params="[id: object.id]">
+                                        <g:uploadForm controller="dashboard" action="docRes" name="documentResource" params="[id: usrId]">
                                             <div class="container" style="padding:10px">
                                                 <div class="form-group">
-                                                    <label for="topicName">Name:</label>
-                                                    <g:textField name="topicName" class="input" id="topicName"/>
+                                                    <div class="col-md-4">
+                                                        <label>Document :</label>%{--<label>Document :</label> label for="document"--}%
+                                                    </div>%{--<g:textField name="document" class="input" id="document"/>--}%
+                                                    <div class="col-md-8">
+                                                        <input type="file" name="photo" id="photo">
+                                                    </div>
                                                 </div>
                                                 <br>
                                                 <div class="form-group">
-                                                    <lable for="topicVisible">Visibility:</lable>
-                                                    <select class="box"  name="topicVisible" >
-                                                        <option value="Public" selected>Public</option>
-                                                        <option value="Private">Private</option>
-                                                    </select>
+                                                    <label for="description">Description :</label>
+                                                    <g:textArea name="description" class="input" id="description"/>
+                                                </div>
+                                                <br>
+                                                <div class="form-group" >
+                                                    <lable for="topic">Topic :</lable>
+                                                    <g:select optionKey="id" optionValue="topicName" from="${company.Topic.list()}" name="topic"/>
                                                 </div>
                                                 <br>
                                                 <div class="modal-footer">
                                                     <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
-                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" onclick="document.getElementById('modal').style.display='none'">
-
+                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" >
                                                 </div>
                                             </div>
-                                        </g:form>
+                                        </g:uploadForm>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-                    </li>
-                    %{--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>--}%
+                    </li>%{--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>--}%
 
                     <li class="nav navbar-nav navbar-right" id="modalend">
-                        <a href="#" class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                            </svg>
+                        <a href="/profile/prof" class="icon">
+                            <g:if test="${usrId.photo!=null}">
+                                <asset:image src="/Photos/${usrId.userName}.png" class="media-object2"/>
+                            </g:if>
+                            <g:else>
+                                <asset:image src="profile.png" class="media-object2"/>
+                            </g:else>
                         </a>
                     </li>
                     <li>
@@ -257,14 +254,9 @@
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <g:link controller="profile" action="editProfile" params="[id: usrId]" name="User" class="dropdown-item ">Profile</g:link>
-                                %{--<a class="dropdown-item" href="#" >Profile</a>--}%
-                                %{--<g:link controller="profile" action="users1" params="[id: usr]" name="Users" class="dropdown-item ">Users</g:link>--}%
-                                %{--<a class="dropdown-item" href="#" >Users</a>--}%
-                                %{--<g:link controller="topic" action="topics" params="[id: usr]" name="Topics" class="dropdown-item ">Topics</g:link>--}%
-                                %{--<a class="dropdown-item" href="#">Topics</a>--}%
-                                %{--<g:link controller="topic" action="posts" params="[id: usr]" name="Posts" class="dropdown-item ">Posts</g:link>--}%
-                                %{--<a class="dropdown-item" href="#">Posts</a>--}%
-                                %{--<a class="dropdown-item" href="#">Logout</a>--}%
+                                <g:link controller="profile" action="users1" params="[id: usrId]" name="Users" class="dropdown-item ">Users</g:link>
+                                <g:link controller="profile" action="topics" params="[id: usrId]" name="Topics" class="dropdown-item ">Topics</g:link>
+                                <g:link controller="profile" action="posts" params="[id: usrId]" name="Posts" class="dropdown-item ">Posts</g:link>
                                 <g:link controller="dummy" action="logout" params="[id: usrId]" name="Logout" class="dropdown-item ">Logout</g:link>
                             </div>
                         </div>
@@ -275,10 +267,62 @@
     </nav>
     <br>
 </div>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        %{--<table>--}%
+            %{--<thead>--}%
+            %{--<tr>--}%
+                %{--<th class="sortable"><a href="/profile/users?sort=empId&amp;max=10&amp;order=asc">Emp Id</a></th>--}%
+                %{--<th class="sortable"><a href="/profile/users?sort=firstName&amp;max=10&amp;order=asc">First Name</a></th>--}%
+                %{--<th class="sortable"><a href="/profile/users?sort=lastName&amp;max=10&amp;order=asc">Last Name</a></th>--}%
+                %{--<th class="sortable"><a href="/profile/users?sort=department&amp;max=10&amp;order=asc">Department</a></th>--}%
+            %{--</tr>--}%
+            %{--</thead>--}%
+            %{--<tbody>--}%
+            %{----}%
+            %{--</tbody>--}%
+        %{--</table>--}%
+        %{--<f:table collection="${dummyList}" />--}%
+
+        %{--<div class="pagination">--}%
+            %{--<g:paginate total="${dummyCount ?: 0}" />--}%
+        %{--</div>--}%
+        <div id="dummy" class="content" role="main">
+            <h1>Users</h1>
+            <table id="users_dt" class="display compact" style="width:99%;">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Firstname</th>
+                    <th>LastName</th>
+                    <th>Action</th>
+                    <th>Message</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Firstname</th>
+                    <th>LastName</th>
+                    <th>Action</th>
+                    <th>Message</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
 <script>
     setTimeout(function(){
         $("#flash").css("display",'none');
     }, 1500 ); // 1.5 sec
+
+
 </script>
 </body>
 </html>

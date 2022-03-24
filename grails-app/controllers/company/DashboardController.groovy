@@ -2,13 +2,6 @@ package company
 
 class DashboardController {
 
-//    def index() {
-//        flash.message = "Welcome to index..!"
-//        Dummy d = Dummy.findById(params.uid)
-////        println d
-//        render view: "index", model: [object: d]
-////        render action: "topic", model: [object: d]
-//    }
 
     def dashboard() {
         flash.message = "Welcome..!"
@@ -22,17 +15,6 @@ class DashboardController {
 
     }
 
-//    def users() {
-//        Dummy e = Dummy.findById(params.uid)
-//        println e
-//        render view: "/profile/users1", model: [object1: e]
-//    }
-
-//    def prof() {
-//        Dummy f = Dummy.findById(params.uid)
-//        println f
-//        render view: "/profile/prof", model: [object2: f]
-//    }
 
     def topic() {
 //        Dummy d=Dummy.findById(params.uid)
@@ -64,6 +46,7 @@ class DashboardController {
         Resources r = new Resources(description: params.description, topic: params.topic , user: lr.id)
         println r.properties
         r.save(flush: true, failOnEror:true)
+        println r
 
         LinkResource l = new LinkResource(url: params.url, resources: r)
 
@@ -78,20 +61,22 @@ class DashboardController {
 
     def docRes() {
         println params
-//        def user = session["Dummy"]
-//        Dummy dum = Dummy.findByEmail(params.email)
-
-
-//        def f = request.getFile('photo')
-
-//        File fileDest = new File("/home/ashishbani/Desktop/Dummy/grails-app/assets/images/Photos/")
-//        f.transferTo(fileDest)
-
 
         Dummy dr =session.getAttribute("users")
         Resources r = new Resources(description: params.description, topic: params.topic, user: dr.id)
         r.save (flush: true)
-        DocumentResource doc = new DocumentResource(filePath: params.filePath, resource: r)
+
+        def file=request.getFile('photo')
+        String docUploadPath="/home/ashishbani/Desktop/Dummy/grails-app/assets/images/Document/${params.userName}.png"
+        if(file && !file.empty){
+            file.transferTo(new File("${docUploadPath}"))
+            flash.message="Image uploaded"
+        }
+        else{
+            flash.message="Image not uploaded"
+        }
+
+        DocumentResource doc = new DocumentResource(filePath: docUploadPath, resource: r)
 
         doc.save(flush: true, failOnError: true)
 
