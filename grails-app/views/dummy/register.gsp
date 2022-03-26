@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="container-fluid">
                         <div class="card" id="cards1" style="border-radius: 25px">
-                            <h4 class="card-header">Recent Searches</h4>
+                            <h4 class="card-header">Recent Shares</h4>
                             <div class="card-body" id="n">
                                 <div class="media">
                                     <div class="row">
@@ -63,7 +63,7 @@
                                                         <h6>${"@"+it.user.userName}</h6>
                                                     </div>
                                                     <div class="col-md-3 d-flex">
-                                                        <a href="/profile/topics">
+                                                        <a href="/dummy/topic">
                                                             <h6 class="media-heading">
                                                                 ${it.topic.topicName}
                                                             </h6>
@@ -92,7 +92,7 @@
                                                     <div class="col-md-5">
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <a href="/profile/posts">
+                                                        <a href="/dummy/post">
                                                             <h6>View post</h6>
                                                         </a>
                                                     </div>
@@ -128,12 +128,12 @@
                                                     <div class="col-md-5">
                                                         <h6>${"@"+it.user.userName}</h6>
                                                     </div>
-                                                    <div class="col-md-3 d-flex">
-                                                        <a href="/profile/topics">
+                                                    <div class="col-md-3">
+                                                        <g:link controller="dummy" action="topic" params="[tid:it.topic.id]">
                                                             <h6 class="media-heading">
                                                                 ${it.topic.topicName}
                                                             </h6>
-                                                        </a>
+                                                        </g:link>
                                                     </div>
                                                     <p>${it.description}</p>
                                                     <div class="col-md-4">
@@ -157,11 +157,10 @@
                                                     </div>
                                                     <div class="col-md-5">
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <a href="/profile/posts">
-                                                            <h6>View post</h6>
-                                                        </a>
-                                                    </div>
+                                                    %{--<div class="col-md-3"> <g:link controller="dashboard" action="post">View post</g:link></div>--}%
+                                                    <a href="/dashboard/post" class="col-md-3">
+                                                        <h6>View post</h6>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <hr style="height: 0px">

@@ -21,5 +21,19 @@ class DummyService {
         Dummy.get(id).delete()
     }
 
+    def topic(){
+//        Topic topic=Topic.findById(topicId)
+//        Resources resources=Resources.findByTopic(topic)
+        def list=Resources.createCriteria().list {
+//            eq("topicVisible","Public")
+            order("dateCreated","desc")
+        }
+        return list
+    }
+
+    def login(){
+
+    }
+
 
 }

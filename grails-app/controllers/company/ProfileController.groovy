@@ -2,6 +2,8 @@ package company
 
 class ProfileController {
 
+    def profileService
+
     def index() { }
 
     def prof(){
@@ -11,6 +13,7 @@ class ProfileController {
     }
 
     def users(){
+        profileService.userList()
         Dummy f =session.getAttribute("users")
         println "HII"
         render view: "users", model: [usrId: f]
@@ -22,11 +25,10 @@ class ProfileController {
         render view: "posts", model: [usrId: f]
     }
 
-
     def topics(){
-
+        Topic topic=Topic.findById(params.tid)
         Dummy f =session.getAttribute("users")
-        render view: "topics", model: [usrId: f]
+        render view: "topics", model: [usrId: f, top:topic]
     }
 
 

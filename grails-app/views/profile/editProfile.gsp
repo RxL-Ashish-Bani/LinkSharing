@@ -151,7 +151,7 @@
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <g:each in="${company.Subscription.list(max:5)}">
+                                <g:each in="${company.Subscription.list(max:5,order:'desc')}">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <g:if test="${it.topic.createdBy.photo!=null}">

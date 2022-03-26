@@ -7,14 +7,21 @@ class DashboardController {
         flash.message = "Welcome..!"
         Dummy a = session.getAttribute("users")
 //        Dummy d = Dummy.findById(params.uid)
-        println a
 
+        println a
         render(view: "dashboard", model: [usr: a])
-//        redirect action: "topic", model: [object: d]
+//        redirect action: "dashboard", model: [object: a]
 
 
     }
 
+    def delete(){
+        Dummy dummy=session.getAttribute("users")
+        Subscription subscription=Subscription.findById(params.tid)
+        subscription.delete(flush: true)
+        println("Deleted")
+        render view: "dashboard", model: [usr: dummy]
+    }
 
     def topic() {
 //        Dummy d=Dummy.findById(params.uid)
@@ -53,7 +60,9 @@ class DashboardController {
         l.save(flush: true)
 
         println l
-
+//        ReadingItem readingItem = new ReadingItem(isRead: false,resource: r,user: lr)
+//
+//        readingItem.save(flush:true)
 //        Dummy d = Dummy.findByEmail(params.email)
         flash.message = "Link Created"
         render view: "dashboard", model: [object1: l , usr: lr] //, objRes: r
@@ -67,7 +76,7 @@ class DashboardController {
         r.save (flush: true)
 
         def file=request.getFile('photo')
-        String docUploadPath="/home/ashishbani/Desktop/Dummy/grails-app/assets/images/Document/${params.userName}.png"
+        String docUploadPath="/home/ashishbani/Desktop/Dummy/grails-app/assets/images/Document/${dr.userName+r.id}.png"
         if(file && !file.empty){
             file.transferTo(new File("${docUploadPath}"))
             flash.message="Image uploaded"
@@ -81,9 +90,14 @@ class DashboardController {
         doc.save(flush: true, failOnError: true)
 
         println doc
+//        ReadingItem readingItem = new ReadingItem(isRead: false,resource: r,user: dr)
+//
+//        readingItem.save(flush:true)
 //        Dummy d = Dummy.findByEmail(params.email)
         flash.message = "Doc Created"
-        render view: "dashboard", model: [object1: doc , usr : dr]
+        render view: "dashboard", model: [object1: doc , usr: dr]
+//        Dummy d = Dummy.findByEmail(params.email)
+
     }
 
     def users1(){

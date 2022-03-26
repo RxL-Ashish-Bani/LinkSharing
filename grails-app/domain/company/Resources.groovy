@@ -12,7 +12,7 @@ class Resources {
         lastUpdated nullable: true, date: true
     }
 
-    static hasMany = [readingItem: ReadingItem]
+//    static hasMany = [readingItem: ReadingItem]
     static belongsTo = [topic: Topic, user: Dummy]
 
 }

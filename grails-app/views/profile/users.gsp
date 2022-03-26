@@ -11,13 +11,11 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <style type="text/css">
-    .roundside{
-        border-radius: 25px;
-    }
-    </style>
+    %{--<style type="text/css">--}%
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 </head>
-<body id="b">
+<body>
 <div id="flash">
     <g:if test="${flash.message}">
         <div class="alert alert-warning alert-dismissible alert-danger fade show" role="alert">
@@ -269,52 +267,37 @@
 </div>
 <br>
 <div class="container-fluid">
-    <div class="row">
-        %{--<table>--}%
-            %{--<thead>--}%
-            %{--<tr>--}%
-                %{--<th class="sortable"><a href="/profile/users?sort=empId&amp;max=10&amp;order=asc">Emp Id</a></th>--}%
-                %{--<th class="sortable"><a href="/profile/users?sort=firstName&amp;max=10&amp;order=asc">First Name</a></th>--}%
-                %{--<th class="sortable"><a href="/profile/users?sort=lastName&amp;max=10&amp;order=asc">Last Name</a></th>--}%
-                %{--<th class="sortable"><a href="/profile/users?sort=department&amp;max=10&amp;order=asc">Department</a></th>--}%
-            %{--</tr>--}%
-            %{--</thead>--}%
-            %{--<tbody>--}%
-            %{----}%
-            %{--</tbody>--}%
-        %{--</table>--}%
-        %{--<f:table collection="${dummyList}" />--}%
-
-        %{--<div class="pagination">--}%
-            %{--<g:paginate total="${dummyCount ?: 0}" />--}%
-        %{--</div>--}%
-        <div id="dummy" class="content" role="main">
-            <h1>Users</h1>
-            <table id="users_dt" class="display compact" style="width:99%;">
-                <thead>
+    <div class="row" STYLE="margin-left: 40PX">
+        <table id="table_id"  style="width:100%;">
+            <thead id="thead" style="background-color: #dbe9f6;">
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Firstname</th>
+                <th>LastName</th>
+                <th>Action</th>
+                <th>Message</th>
+                %{--<th>Column 1</th>--}%
+                %{--<th>Column 2</th>--}%
+            </tr>
+            </thead>
+            <tbody>
+            <g:each in="${company.Dummy.list(max:15)}" var="dum">
                 <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Firstname</th>
-                    <th>LastName</th>
-                    <th>Action</th>
-                    <th>Message</th>
+                    <td>${dum.id}</td>
+                    <td>${dum.userName}</td>
+                    <td>${dum.email}</td>
+                    <td>${dum.firstName}</td>
+                    <td>${dum.lastName}</td>
+                    <td>${dum.active}</td>
+                    <td>
+                        Activate
+                    </td>
                 </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Firstname</th>
-                    <th>LastName</th>
-                    <th>Action</th>
-                    <th>Message</th>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
+            </g:each>
+        </tbody>
+        </table>
     </div>
 </div>
 <script>
@@ -322,6 +305,9 @@
         $("#flash").css("display",'none');
     }, 1500 ); // 1.5 sec
 
+    $(document).ready( function () {
+         $('#table_id').DataTable();
+    } );
 
 </script>
 </body>

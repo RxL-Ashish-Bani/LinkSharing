@@ -18,7 +18,7 @@ class Dummy {
         confirmPassword nullable: false, blank: false, minSize: 6
         firstName nullable: false
         lastName nullable: false
-        email email: true, nullable: false
+        email email: true, nullable: false, unique: true
         dateCreated nullable: true, date:  true
         lastUpdated nullable: true, date: true
         admin nullable: true

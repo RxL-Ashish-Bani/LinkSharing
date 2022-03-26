@@ -146,7 +146,7 @@
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <g:each in="${company.Subscription.list(max:5)}">
+                                <g:each in="${company.Subscription.list(max:5,order:'desc')}">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <g:if test="${it.topic.createdBy.photo!=null}">
@@ -212,7 +212,7 @@
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <g:each in="${company.Subscription.list(max:5)}">
+                                <g:each in="${company.Subscription.list(max:5,order:'desc')}">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <g:if test="${it.topic.createdBy.photo!=null}">
@@ -284,7 +284,7 @@
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <g:each in="${company.Resources.list(max:5)}">
+                                <g:each in="${company.Resources.list(max:5,order:'desc')}">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <g:if test="${it.topic.createdBy.photo!=null}">
@@ -309,12 +309,16 @@
                                                 </div>
                                                 <div class="col-md-11">
                                                     <div class="row">
-                                                        <div class="col-md-3" href="#">
-                                                            Download
-                                                        </div>
-                                                        <a class="col-md-3" href="${company.LinkResource.findByResources(it).url}" target="_blank">
-                                                            View full site
-                                                        </a>
+                                                        <g:if test="${company.LinkResource.findByResources(it)}">
+                                                            <a class="col-md-3" href="${company.LinkResource.findByResources(it).url}" target="_blank">
+                                                                View full site
+                                                            </a>
+                                                        </g:if>
+                                                        <g:else>
+                                                            <div class="col-md-3" href="#">
+                                                                Download
+                                                            </div>
+                                                        </g:else>
                                                         <div class="col-md-3" href="#">
                                                             Mark as read
                                                         </div>

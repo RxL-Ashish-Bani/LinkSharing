@@ -5,6 +5,13 @@ $(document).ready(function(){
      });
 });
 
+window.$ = window.jquery = require('./node_modules/jquery');
+window.dt = require('./node_modules/datatables.net')();
+window.$('#table_id').DataTable();
+
+// $(document).ready( function () {
+//      $('#table_id').DataTable();
+// } );
 
 // $('#users_dt tfoot th').each( function() {
 //      var title = $(this).text();
@@ -43,3 +50,4 @@ table.columns().every(function() {
                that.search(this.value).draw();
      });
 });
+

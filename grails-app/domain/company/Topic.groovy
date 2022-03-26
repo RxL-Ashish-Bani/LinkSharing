@@ -19,6 +19,6 @@ class Topic {
         Private,
         Public
     }
-    static hasMany = [subscription: Subscription, resource: Resources, linkResource: LinkResource, docResource: DocumentResource]
+    static hasMany = [subscription: Subscription, resource: Resources]
     static belongsTo = [Dummy]
 }

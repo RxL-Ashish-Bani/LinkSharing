@@ -3,30 +3,6 @@ package company
 class DummyController {
 
     def dummyService
-    def fileUploadService
-
-    def index() {
-//        respond dummyService.list()
-        respond new Dummy(params)
-//        redirect action: "index", method: "POST"
-    }
-
-    def show(Long id) {
-        respond dummyService.get(id)
-//        println(params)
-    }
-
-    def create() {
-        Dummy dummy= new Dummy(params).save(flush: true)
-
-//        println(params)
-    }
-
-    def save(Dummy dummy) {
-        dummyService.save(dummy)
-//        println(params)
-        redirect action:"show", method:"GET"
-    }
 
     def delete(Long id) {
         dummyService.delete(id)
@@ -34,12 +10,16 @@ class DummyController {
     }
 
     def topic(){
-        render view: "topic"
-    }
 
-//    def dashboard(){
-//        println "I m reached Dashboard"
-//    }
+
+//        Topic topic=Topic.findAllById(params.tid)
+        Dummy f =session.getAttribute("users")
+
+
+        def list=dummyService.topic()
+        println(list)
+        render view: "topic", model: [usrId: f, lst:list]
+    }
 
     def login(){
         Dummy user=Dummy.findByUserName(params.userName)
@@ -67,11 +47,12 @@ class DummyController {
     }
 
     def register(){
-
+        def list=dummyService.topic()
+        println(list)
         if(params.password!=params.confirmPassword){
             println "NOOOOOO"
             flash.message="Password didn't match"
-            render view: "register"
+            render view: "register", model: [lst: list]
         }
 
         else {
@@ -80,22 +61,34 @@ class DummyController {
             String imageUploadPath="/home/ashishbani/Desktop/Dummy/grails-app/assets/images/Photos/${params.userName}.png"
             if(file && !file.empty){
                 file.transferTo(new File("${imageUploadPath}"))
+                Dummy user=new Dummy(firstName: params.firstName,lastName: params.lastName,password: params.password,confirmPassword: params.confirmPassword,userName: params.userName,email: params.email,photo: imageUploadPath, active: true)
+                user.save flush: true
                 flash.message="Image uploaded"
             }
             else{
+                Dummy user=new Dummy(firstName: params.firstName,lastName: params.lastName,password: params.password,confirmPassword: params.confirmPassword,userName: params.userName,email: params.email, active: true)
+                user.save flush: true
                 flash.message="Image not uploaded"
             }
 
-            Dummy user=new Dummy(firstName: params.firstName,lastName: params.lastName,password: params.password,confirmPassword: params.confirmPassword,userName: params.userName,email: params.email,photo: imageUploadPath, active: false)
-            user.save flush: true
+//            dummyService.register()
+
             flash.message="User Created"
-            render view: "register"
+            render view: "register", model: [lst:list]
         }
     }
     def logout(){
         session.invalidate()
         render view: "register"
     }
+
+    def post(){
+        Dummy f =session.getAttribute("users")
+        println "Hello"
+
+        render view: "post", model: [usrId: f]
+    }
+
 
 
 }
