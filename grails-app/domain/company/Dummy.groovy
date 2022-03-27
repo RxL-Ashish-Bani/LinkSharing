@@ -27,6 +27,11 @@ class Dummy {
     }
 
     static hasMany = [topic: Topic]
+
+    static mapping = {
+//        password type: 'password'
+//        confirmPassword type:'password'
+    }
 }
 
 

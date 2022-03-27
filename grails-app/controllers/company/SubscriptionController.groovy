@@ -21,7 +21,7 @@ class SubscriptionController {
 //        Dummy dummy = Dummy.findById(params.uid)
         println "Unsub"
 
-        Subscription subscription=Subscription.findByUser(dummy)
+        Subscription subscription=Subscription.findByUserAndTopic(dummy,topic)
         println subscription
         println "HII"
         subscription.delete(flush: true)

@@ -21,4 +21,8 @@ class Topic {
     }
     static hasMany = [subscription: Subscription, resource: Resources]
     static belongsTo = [Dummy]
+
+    static mapping = {
+        topicName cascade: 'all-delete-orphan'
+    }
 }

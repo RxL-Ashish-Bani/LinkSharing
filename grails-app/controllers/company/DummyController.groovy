@@ -30,7 +30,7 @@ class DummyController {
             render view: "register"
         }
         else{
-            if(user.password!=params.password){
+            if(user.password!=params.password && !(user.active)){
                 flash.message ="Password doesn't match..!"
                 render view: "register"
             }

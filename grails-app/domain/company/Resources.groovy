@@ -15,4 +15,7 @@ class Resources {
 //    static hasMany = [readingItem: ReadingItem]
     static belongsTo = [topic: Topic, user: Dummy]
 
+    static mapping = {
+        description type:'text'
+    }
 }

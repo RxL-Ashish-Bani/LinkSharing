@@ -196,7 +196,7 @@
                         <div class="card-body" id="row1">
                             <div class="media">
                                 <g:each in="${company.Resources.list()}">
-                                    <g:if test="${(it.user.id==usrId.id) }">
+                                    <g:if test="${(it.user.id==usrId.id) && (it.id==res.id)}">
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <g:if test="${it.topic.createdBy.photo!=null}">

@@ -236,8 +236,8 @@
 
                     <li class="nav navbar-nav navbar-right" id="modalend">
                         <a href="/profile/prof" class="icon">
-                            <g:if test="${usrId.photo!=null}">
-                                <asset:image src="/Photos/${usrId.userName}.png" class="media-object2"/>
+                            <g:if test="${usrId?.photo!=null}">
+                                <asset:image src="/Photos/${usrId?.userName}.png" class="media-object2"/>
                             </g:if>
                             <g:else>
                                 <asset:image src="profile.png" class="media-object2"/>
@@ -247,7 +247,7 @@
                     <li>
                         <div class="dropdown show">
                             <a class="btn btn-primary dropdown-toggle icon" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                ${usrId.userName}
+                                ${usrId?.userName}
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -283,17 +283,31 @@
             </tr>
             </thead>
             <tbody>
-            <g:each in="${company.Dummy.list(max:15)}" var="dum">
+            <g:each in="${company.Dummy.list()}" var="dum">
                 <tr>
                     <td>${dum.id}</td>
                     <td>${dum.userName}</td>
                     <td>${dum.email}</td>
                     <td>${dum.firstName}</td>
                     <td>${dum.lastName}</td>
-                    <td>${dum.active}</td>
                     <td>
-                        Activate
+                        <g:if test="${dum.active}">
+                            Active
+                        </g:if>
+                        <g:else>
+                            Inactive
+                        </g:else>
                     </td>
+                    <g:if test="${dum.active}">
+                        <td>
+                            <g:link controller="profile" action="deactivate" params="[usr: dum.id]">Deactivate</g:link>
+                        </td>
+                    </g:if>
+                    <g:else>
+                        <td>
+                            <g:link controller="profile" action="activate" params="[usr:dum.id]">Activate</g:link>
+                        </td>
+                    </g:else>
                 </tr>
             </g:each>
         </tbody>

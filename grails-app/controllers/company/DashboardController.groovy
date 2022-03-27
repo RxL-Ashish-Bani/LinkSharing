@@ -1,4 +1,5 @@
 package company
+import grails.plugins.mail.MailService
 
 class DashboardController {
 
@@ -9,8 +10,10 @@ class DashboardController {
 //        Dummy d = Dummy.findById(params.uid)
 
         println a
-        render(view: "dashboard", model: [usr: a])
+        Topic topic= Topic.findByCreatedBy(a)
+        render(view: "dashboard", model: [usr: a,top: topic])
 //        redirect action: "dashboard", model: [object: a]
+
 
 
     }
@@ -43,8 +46,17 @@ class DashboardController {
     }
 
 
-    def invitation() {
+    MailService mailService   // note it must be outside of any methods/closure
 
+    def invitation() {
+        String email =params.receiver
+        String message = params.visibility
+
+        mailService.sendMail {
+            to email
+            subject "Contact"
+            body message
+        }
     }
 
     def linkRes() {
