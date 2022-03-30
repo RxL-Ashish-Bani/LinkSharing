@@ -18,4 +18,10 @@ class Resources {
     static mapping = {
         description type:'text'
     }
+
+//    def getResourceRelatedTopic() {
+//        createCriteria().list {
+//
+//        }
+//    }
 }

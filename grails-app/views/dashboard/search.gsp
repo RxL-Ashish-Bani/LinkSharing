@@ -21,12 +21,12 @@
 </head>
 <body id="b">
 <div id="flash">
-    <g:if test="${flash.message}">
-        <div class="alert alert-warning alert-dismissible alert-danger fade show" role="alert">
-            <strong>${flash.message}!</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </g:if>
+<g:if test="${flash.message}">
+<div class="alert alert-warning alert-dismissible alert-danger fade show" role="alert">
+<strong>${flash.message}!</strong>
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+</g:if>
 </div>
 
 
@@ -39,107 +39,12 @@
             <div class="col-md-8">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        %{--<div class="header-search">--}%
-                            %{--<g:form action="search" controller="dashboard" method="post" name="search" params="[id: usr,rid: res]">--}%
-                                %{--<g:textField name="search" class="search-field" value="search"/>--}%
-                                %{--<button type="submit" class="search-submit"><i class="fa fa-search fa-lg"></i></button>--}%
-                            %{--</g:form>--}%
-                        %{--</div>--}%
                         <g:form class="navbar-form navbar d-flex" action="search" controller="dashboard" name="search" params="[id: usr,rid: res]">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search" name="search">
+                                <input type="text" class="form-control" placeholder="Search">
                             </div>
                             <button type="submit" class="btn btn-primary" id="button">Search</button>
                         </g:form>
-                    </li>
-                    <li>
-
-                        <a href="#" class="icon" id="modal" data-toggle="modal" data-target="#exampleModalCenter">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-chat-fill" viewBox="0 0 16 16" loading="lasy" onclick="getElementById('exampleModalCenter').style.display='block'">
-                                <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z"/>
-                            </svg>
-                        </a>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="col-md-12">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Create Topic</h5>
-                                        </div>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <g:form controller="dashboard" action="topic" name="create-topic" method="POST" params="[id: usr]">
-                                            <div class="container" style="padding:10px">
-                                                <div class="form-group">
-                                                    <label for="topicName">Name:</label>
-                                                    <g:textField name="topicName" class="input" id="topicName" />
-                                                </div>
-                                                <br>
-                                                <div class="form-group">
-                                                    <lable for="topicVisible">Visibility:</lable>
-                                                    <select class="box"  name="topicVisible" >
-                                                        <option value="Public" selected>Public</option>
-                                                        <option value="Private">Private</option>
-                                                    </select>
-                                                </div>
-                                                <br>
-                                                <div class="modal-footer">
-                                                    <g:submitButton name="create-topic" value="Save"  class="btn btn-secondary" id="button" action="topic" style="float: right; margin-right: 4px;"/>
-                                                    <input type="button" value="Cancel" class="submit btn btn-secondary" id="button" data-dismiss="modal" style="float:right; margin-right:4px;" >
-
-                                                </div>
-                                            </div>
-                                        </g:form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <br>
-                    <br>
-                    <li>
-                        <a href="#" class="icon" data-toggle="modal" data-target="#exampleModalCenter1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16" onclick="getElementById('exampleModalCenter1').style.display='block'">
-                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
-                            </svg>
-                        </a>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <div class="col-md-12">
-                                            <h5 class="modal-title" id="exampleModalLongTitle1">Send Invitation</h5>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="modal-body">
-                                        <g:form controller="dashboard" action="invitation" name="Form" id="Email" method="post" params="[id: usr]">
-                                            <div class="container" style="padding:10px">
-                                                <div class="form-group">
-                                                    <label for="mail">Email:</label>
-                                                    <g:textField type="Email" name="receiver" class="input" id="mail"/>
-                                                </div>
-                                                <br>
-                                                <div class="form-group" >
-                                                    <lable for="topicVisible">Topic:</lable>
-                                                    <g:select optionKey="id" optionValue="topicName" from="${company.Topic.list()}" name="visibility" id="topicVisible"/>
-                                                </div>
-                                                <br>
-                                                <div class="modal-footer">
-                                                    <g:submitButton name="create-topic" value="Invite"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" /> %{--onclick="sendEmail()"--}%
-                                                    <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" >
-                                                </div>
-                                            </div>
-                                        </g:form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </li>
                     <li>
 
@@ -261,10 +166,6 @@
                             <g:if test="${usr.admin}">
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <g:link controller="profile" action="editProfile" params="[id: usr]" name="User" class="dropdown-item ">Profile</g:link>
-                                    <g:link controller="profile" action="users" params="[id: usr]" name="Users" class="dropdown-item ">Users</g:link>
-                                    %{--${top}--}%
-                                    <g:link controller="profile" action="topics" params="[id: usr, tid: top]" name="Topics" class="dropdown-item ">Topics</g:link>
-                                    <g:link controller="profile" action="posts" params="[id: usr,rid: res]" name="Posts" class="dropdown-item ">Posts</g:link>
                                     <g:link controller="dummy" action="logout" params="[id: usr]" name="Logout" class="dropdown-item ">Logout</g:link>
                                 </div>
                             </g:if>
@@ -286,234 +187,6 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-5">
-            <div class="row"><!-- Nested media object -->
-                <div class="container-fluid">
-                    <div class="card roundside" id="rows1">
-                        <div class="card-body" id="row1">
-                            <div class="media">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <g:if test="${usr.photo!=null}">
-                                            <asset:image src="/Photos/${usr.userName}.png" class="media-object1"/>
-                                        </g:if>
-                                        <g:else>
-                                            <asset:image src="profile.png" class="media-object1"/>
-                                        </g:else>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <h3 class="media-heading">${usr.firstName+" "+usr.lastName}</h3>
-                                        <h6>${"@"+usr.userName}</h6>
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <h6>Subscriptions</h6>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <h6>Topics</h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <a href="/profile/prof" class="col-md-6">
-                                                <div >
-                                                    <h6>${company.Subscription.countByUser(usr)}</h6>
-                                                </div>
-                                            </a>
-                                            <a href="/profile/prof" class="col-md-6">
-                                                <div>
-                                                    <h6>${company.Topic.countByCreatedBy(usr)}</h6>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="row"><!-- Nested media object -->
-                <div class="container-fluid">
-                    <div class="card" id="rows1"  style="border-radius: 25px; padding: auto">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <h5>Subscriptions</h5>
-                                </div>
-                                <div class="col-md-3">
-                                    %{--<a href="#">View All</a>--}%
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body" id="row1">
-                            <div class="media">
-                                <g:each in="${company.Subscription.list()}">
-                                    <g:if test="${(it.user.id==usr.id)}">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <g:if test="${it.topic.createdBy.photo!=null}">
-                                                    <asset:image src="/Photos/${it.topic.createdBy.userName}.png" class="media-object1"/>
-                                                </g:if>
-                                                <g:else>
-                                                    <asset:image src="profile.png" class="media-object1"/>
-                                                </g:else>
-                                            </div>
-                                            <div class="col-md-9" id="new">
-                                                <g:link controller="profile" action="topics" params="[tid:it.topic.id]">
-                                                    <h6 class="media-heading" id="author">
-                                                        ${it.topic.topicName}
-                                                    </h6>
-                                                </g:link>
-                                                <br>
-
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <h6>${"@"+it.topic.createdBy.userName}</h6>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <h6>Subscriptions</h6>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <h6>Post</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4" href="#">
-                                                        <g:if test="${it.topic.createdBy.id==usr.id}">
-                                                        </g:if>
-                                                        <g:else>
-                                                            <g:link controller="subscription" action="unsubscribe" params="[tid: it.topic.id,uid: usr.id]">Unsubscribe</g:link>
-                                                        </g:else>
-                                                        %{--Subscribe--}%
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <h6>${company.Subscription.countByTopic(Topic.findById(it.topic.id))}</h6>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <h6>${company.Resources.countByTopic(Topic.findById(it.topic.id))}</h6>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <g:form controller="dashboard" action="changeVisible" params="[tid: it.topic.id,uid: usr.id]">
-                                                            <g:select name="topicVisible" from="${["Private","Public"]}" onchange="submit()" value="${it.topic.topicVisible}"/>
-                                                        </g:form>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <g:form controller="dashboard" action="changeSerious" params="[tid: it.topic.id,uid: usr.id]">
-                                                            <g:select name="seriousness" from="${["VerySerious","Serious","Casual"]}" onchange="submit()" value="${it.seriousness}"/>
-                                                        </g:form>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="row">
-                                                            <div class="col-md-3">
-                                                                <a href="#" class="icon" data-toggle="modal" data-target="#exampleModalCenter1">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16" onclick="getElementById('exampleModalCenter1').style.display='block'">
-                                                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
-                                                                    </svg>
-                                                                </a>
-                                                                <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-
-                                                                            <div class="modal-header">
-                                                                                <div class="col-md-12">
-                                                                                    <h5 class="modal-title" id="exampleModalLongTitle1">Send Invitation</h5>
-                                                                                </div>
-                                                                            </div>
-                                                                            <br>
-                                                                            <div class="modal-body">
-                                                                                <g:form name="Form" params="[id: usr]" id="Email" method="post">
-                                                                                    <div class="container" style="padding:10px">
-                                                                                        <div class="form-group">
-                                                                                            <label for="topicName">Email:</label>
-                                                                                            <input type="Email" name="receiver" class="input" id="topicName"/>
-                                                                                        </div>
-                                                                                        <br>
-                                                                                        <div class="form-group" >
-                                                                                            <lable for="topicVisible">Topic:</lable>
-                                                                                            <g:select optionKey="id" optionValue="topicName" from="${company.Topic.list()}" name="topicVisible" id="topicVisible"/>
-                                                                                        </div>
-                                                                                        <br>
-                                                                                        <div class="modal-footer">
-                                                                                            <g:submitButton name="create-topic" value="Share"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="sendEmail()"/>
-                                                                                            <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" >
-
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </g:form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <g:if test="${it.topic.createdBy.id==usr.id}">
-                                                                    <a href="#" class="icon" data-toggle="modal" data-target="#exampleModalCenter4" id="editBtn">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16" onclick="getElementById('exampleModalCenter4')">
-                                                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                                                        </svg>
-                                                                    </a>
-                                                                    <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle4" aria-hidden="true">
-                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                            <div class="modal-content">
-
-                                                                                <div class="modal-header">
-                                                                                    <div class="col-md-12">
-                                                                                        <h5 class="modal-title" id="exampleModalLongTitle4">Share Link</h5>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="modal-body">%{--${usr.email}--}%
-                                                                                    <g:form controller="dashboard" action="edit" name="editTopic" params="[id: usr]">
-                                                                                        <div class="container" style="padding:10px">
-                                                                                            <div class="form-group">
-                                                                                                <label for="topicName">Topic Name :</label>
-                                                                                                <g:textField name="topicName" class="input" id="topicName"/>
-                                                                                            </div>
-                                                                                            <br>
-                                                                                            <div class="modal-footer">
-                                                                                                <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
-                                                                                                <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;">
-
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </g:form>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </g:if>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <g:if test="${it.topic.createdBy.id==usr.id}">
-                                                                    <g:link controller="dashboard" action="delete" params="[tid: it.id]">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16" >
-                                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                                                        </svg>
-                                                                    </g:link>
-                                                                </g:if>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                        </div>
-                                    </g:if>
-                                </g:each>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <br>
             <div class="row">
                 <div class="container-fluid">
                     <div class="card" id="rows1"  style="border-radius: 25px; padding: auto">
@@ -527,8 +200,8 @@
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <g:each in="${company.Topic.list()}">
-                                    %{--<g:if test="${it.}"   --}%
+                                <g:each in="${company.Topic.list(max:5)}">
+                                %{--<g:if test="${it.}"   --}%
                                     <g:if test="${!(it.createdBy.id==usr.id)}">
                                         <div class="row">
                                             <div class="col-md-3">
@@ -568,12 +241,12 @@
                                                                 <div class="row">
                                                                     <div class="col-md-4">
                                                                         <g:form controller="dashboard" action="changeVisible" params="[tid: it.id,uid: usr.id]">
-                                                                            <g:select name="topicVisible" from="${["Private","Public"]}" onchange="submit()" value="${topic.topicVisible}"/>
+                                                                            <g:select name="topicVisible" from="${["Private","Public"]}" onchange="submit()" value="${it.topicVisible}"/>
                                                                         </g:form>
                                                                     </div>
                                                                     <div class="col-md-4">
                                                                         <g:form controller="dashboard" action="changeSerious" params="[tid: it.id,uid: usr.id]">
-                                                                            <g:select name="seriousness" from="${["VerySerious","Serious","Casual"]}" onchange="submit()" value="${subs?.seriousness}"/>
+                                                                            <g:select name="seriousness" from="${["VerySerious","Serious","Casual"]}" onchange="submit()" value="${sub.seriousness}"/>
                                                                         </g:form>
                                                                     </div>
                                                                     <div class="col-md-4">
@@ -620,41 +293,12 @@
                                                                             </div>
                                                                             <div class="col-md-3">
                                                                                 <g:if test="${it.createdBy.id==usr.id}">
-                                                                                    <a href="#" class="icon" data-toggle="modal" data-target="#exampleModalCenter4" id="editBtn">
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16" onclick="getElementById('exampleModalCenter4')">
+                                                                                    <a href="#" class="icon" data-toggle="modal" data-target="#exampleModalCenter4">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16" onclick="getElementById()">
                                                                                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                                                                             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                                                                         </svg>
                                                                                     </a>
-                                                                                    <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle4" aria-hidden="true">
-                                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                                            <div class="modal-content">
-
-                                                                                                <div class="modal-header">
-                                                                                                    <div class="col-md-12">
-                                                                                                        <h5 class="modal-title" id="exampleModalLongTitle4">Share Link</h5>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="modal-body">%{--${usr.email}--}%
-                                                                                                    <g:form controller="dashboard" action="edit" name="editTopic" params="[id: usr]">
-                                                                                                        <div class="container" style="padding:10px">
-                                                                                                            <div class="form-group">
-                                                                                                                <label for="topicName">Topic Name :</label>
-                                                                                                                <g:textField name="topicName" class="input" id="topicName"/>
-                                                                                                            </div>
-                                                                                                            <br>
-                                                                                                            <div class="modal-footer">
-                                                                                                                <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
-                                                                                                                <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;">
-
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </g:form>
-                                                                                                </div>
-
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
                                                                                 </g:if>
                                                                             </div>
                                                                             <div class="col-md-3">
@@ -676,10 +320,184 @@
                                                         </g:else>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <h6>${company.Subscription.countByTopic(Topic.findById(it.id))}</h6>
+                                                        <h6>${company.Subscription?.countByTopic(Topic.findById(it.id))}</h6>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <h6>${company.Resources.countByTopic(Topic.findById(it.id))}</h6>
+                                                        <h6>${company.Resources?.countByTopic(Topic.findById(it.id))}</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </g:if>
+                                </g:each>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row"><!-- Nested media object -->
+                <div class="container-fluid">
+                    <div class="card" id="rows1"  style="border-radius: 25px; padding: auto">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h5>Subscriptions</h5>
+                                </div>
+                                <div class="col-md-3">
+                                    %{--<a href="#">View All</a>--}%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" id="row1">
+                            <div class="media">
+                                <g:each in="${company.Subscription.list()}">
+                                    <g:if test="${(it.user.id==usr.id)}">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <g:if test="${it.topic.createdBy.photo!=null}">
+                                                    <asset:image src="/Photos/${it.topic.createdBy.userName}.png" class="media-object1"/>
+                                                </g:if>
+                                                <g:else>
+                                                    <asset:image src="profile.png" class="media-object1"/>
+                                                </g:else>
+                                            </div>
+                                            <div class="col-md-9" id="new">
+                                                <g:link controller="profile" action="topics" params="[tid:it.topic.id]">
+                                                    <h6 class="media-heading" id="author">
+                                                        ${it.topic.topicName}
+                                                    </h6>
+                                                </g:link>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <h6>${"@"+it.topic.createdBy.userName}</h6>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h6>Subscriptions</h6>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h6>Post</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4" href="#">
+                                                        <g:if test="${it.topic.createdBy.id==usr.id}">
+                                                        </g:if>
+                                                        <g:else>
+                                                            <g:link controller="subscription" action="unsubscribe" params="[tid: it.topic.id,uid: usr.id]">Unsubscribe</g:link>
+                                                        </g:else>
+                                                        %{--Subscribe--}%
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h6>${company.Subscription.countByTopic(Topic.findById(it.topic.id))}</h6>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <h6>${company.Resources.countByTopic(Topic.findById(it.topic.id))}</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <g:form controller="dashboard" action="changeVisible" params="[tid: it.topic.id,uid: usr.id]">
+                                                            <g:select name="topicVisible" from="${["Private","Public"]}" onchange="submit()" value="${top.topicVisible}"/>
+                                                        </g:form>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <g:form controller="dashboard" action="changeSerious" params="[tid: it.topic.id,uid: usr.id]">
+                                                            <g:select name="seriousness" from="${["VerySerious","Serious","Casual"]}" onchange="submit()" value="${it.seriousness}"/>
+                                                        </g:form>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <a href="#" class="icon" data-toggle="modal" data-target="#exampleModalCenter1">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16" onclick="getElementById('exampleModalCenter1').style.display='block'">
+                                                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                                                                    </svg>
+                                                                </a>
+                                                                <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <div class="col-md-12">
+                                                                                    <h5 class="modal-title" id="exampleModalLongTitle1">Send Invitation</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <br>
+                                                                            <div class="modal-body">
+                                                                                <g:form name="Form" params="[id: usr]" id="Email" method="post">
+                                                                                    <div class="container" style="padding:10px">
+                                                                                        <div class="form-group">
+                                                                                            <label for="topicName">Email:</label>
+                                                                                            <input type="Email" name="receiver" class="input" id="topicName"/>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="form-group" >
+                                                                                            <lable for="topicVisible">Topic:</lable>
+                                                                                            <g:select optionKey="id" optionValue="topicName" from="${company.Topic.list()}" name="topicVisible" id="topicVisible"/>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="modal-footer">
+                                                                                            <g:submitButton name="create-topic" value="Share"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="sendEmail()"/>
+                                                                                            <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" >
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </g:form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <g:if test="${it.topic.createdBy.id==usr.id}">
+                                                                    <a href="#" class="icon" data-toggle="modal" data-target="#exampleModalCenter4" id="editBtn">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16" onclick="getElementById('exampleModalCenter4')">
+                                                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                                                        </svg>
+                                                                    </a>
+                                                                    <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle4" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <div class="col-md-12">
+                                                                                        <h5 class="modal-title" id="exampleModalLongTitle4">Share Link</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-body">%{--${usr.email}--}%
+                                                                                    <g:form controller="dashboard" action="edit" name="editTopic" params="[id: usr]">
+                                                                                        <div class="container" style="padding:10px">
+                                                                                            <div class="form-group">
+                                                                                                <label for="topicName">Topic Name :</label>
+                                                                                                <g:textField name="topicName" class="input" id="topicName"/>
+                                                                                            </div>
+                                                                                            <br>
+                                                                                            <div class="modal-footer">
+                                                                                                <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
+                                                                                                <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </g:form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </g:if>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <g:if test="${it.topic.createdBy.id==usr.id}">
+                                                                    <g:link controller="dashboard" action="delete" params="[tid: it.id]">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16" >
+                                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                                        </svg>
+                                                                    </g:link>
+                                                                </g:if>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -701,7 +519,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h5>Inbox</h5>
+                                    <h5>Search for "${results.topicName}"</h5>
                                 </div>
                                 <div class="col-md-6">
 
@@ -710,12 +528,12 @@
                         </div>
                         <div class="card-body" id="row1">
                             <div class="media">
-                                <g:each in="${company.Resources.list()}" var="val">
-                                    <g:if test="${!(company.ReadingItem.findByResourceAndUser(val,usr)) && (Subscription?.findByTopic(val.topic)?.user?.id==usr.id) && !(val.user.id==usr.id)}">
+                                <g:each in="${results}" var="val">
+                                    %{--<g:if test="${(Subscription?.findByTopic(val)?.user?.id==usr.id) && !(val.createdBy.id==usr.id)}">--}%
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <g:if test="${val.user.photo!=null}">
-                                                    <asset:image src="/Photos/${val.user.userName}.png" class="media-object1"/>
+                                                <g:if test="${val.createdBy.photo!=null}">
+                                                    <asset:image src="/Photos/${val.createdBy.userName}.png" class="media-object1"/>
                                                 </g:if>
                                                 <g:else>
                                                     <asset:image src="profile.png" class="media-object1"/>
@@ -724,13 +542,13 @@
                                             <div class="col-md-9">
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <h6>${val.user.firstName+" "+val.user.lastName}</h6>
+                                                        <h6>${val.createdBy.firstName+" "+val.createdBy.lastName}</h6>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <h6>${"@"+val.user.userName}</h6>
+                                                        <h6>${"@"+val.createdBy.userName}</h6>
                                                     </div>
                                                 </div>
-                                                <p>${val.description}</p>
+                                                <p>${val.resource.description}</p>
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="row">
@@ -766,33 +584,30 @@
                                                     <div class="col-md-9">
                                                         <div class="row">
                                                             <div class="col-md-3"></div>
-                                                            <g:if test="${company.LinkResource.findByResources(val)}">
-                                                                <a class="col-md-3" href="${company.LinkResource.findByResources(val).url}" target="_blank">
+                                                            <g:if test="${company.LinkResource.findByResources(val.resource)}">
+                                                                <a class="col-md-3" href="${company.LinkResource.findByResources(val.resource).url}" target="_blank">
                                                                     View full site
                                                                 </a>
                                                             </g:if>
-                                                            <g:elseif test="${company.DocumentResource.findByResource(val)}">
-                                                                %{--${company.DocumentResource.findByResource(val)?.filePath}--}%
-                                                                <a class="col-md-3" href="${company.DocumentResource.findByResource(val)?.filePath}" download>Download</a>
+                                                            <g:elseif test="${company.DocumentResource.findByResource(val.resource)}">
+                                                            %{--${company.DocumentResource.findByResource(val)?.filePath}--}%
+                                                                <a class="col-md-3" href="${company.DocumentResource.findByResource(val.resource)?.filePath}" download>Download</a>
                                                             </g:elseif>
                                                             <br>
-                                                            <g:link controller="readingItem" action="read" params="[rid: val.id,uid: val.user.id]" class="col-md-3">
+                                                            <g:link controller="readingItem" action="read" params="[rid: val.resource.id,uid: val.createdBy.id]" class="col-md-3">
                                                                 Mark as read
                                                             </g:link>
                                                             <br>
-                                                            <g:link controller="profile" action="post" params="[rid: val.id,uid: val.user.id]" class="col-md-3">
+                                                            <g:link controller="profile" action="post" params="[rid: val.resource.id,uid: val.createdBy.id]" class="col-md-3">
                                                                 View post
                                                             </g:link>
-                                                            %{--<a href="/profile/post" class="col-md-3">--}%
-                                                                %{--View post--}%
-                                                            %{--</a>--}%
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <hr>
-                                    </g:if>
+                                    %{--</g:if>--}%
                                 </g:each>
                             </div>
                         </div>
@@ -807,6 +622,7 @@
     setTimeout(function(){
         $("#flash").css("display",'none');
     }, 1500 ); // 1.5 sec
+
 </script>
 </body>
 </html>

@@ -62,14 +62,6 @@
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <g:link controller="profile" action="editProfile" params="[id: usrId]" name="User" class="dropdown-item ">Profile</g:link>
-                                %{--<a class="dropdown-item" href="#" >Profile</a>--}%
-                                %{--<g:link controller="profile" action="users1" params="[id: usr]" name="Users" class="dropdown-item ">Users</g:link>--}%
-                                %{--<a class="dropdown-item" href="#" >Users</a>--}%
-                                %{--<g:link controller="topic" action="topics" params="[id: usr]" name="Topics" class="dropdown-item ">Topics</g:link>--}%
-                                %{--<a class="dropdown-item" href="#">Topics</a>--}%
-                                %{--<g:link controller="topic" action="posts" params="[id: usr]" name="Posts" class="dropdown-item ">Posts</g:link>--}%
-                                %{--<a class="dropdown-item" href="#">Posts</a>--}%
-                                %{--<a class="dropdown-item" href="#">Logout</a>--}%
                                 <g:link controller="dummy" action="logout" params="[id: usrId]" name="Logout" class="dropdown-item ">Logout</g:link>
                             </div>
                         </div>
@@ -200,17 +192,14 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <select class="box"  name="topicVisible" >
-                                                            <option value="Public" selected>Public</option>
-                                                            <option value="Private">Private</option>
-                                                        </select>
+                                                        <g:form controller="dashboard" action="changeVisible" params="[tid: it.id,uid: usrId.id]">
+                                                            <g:select name="topicVisible" from="${["Private","Public"]}" onchange="submit()" value="${it.topicVisible}"/>
+                                                        </g:form>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <select class="box"  name="seriousness" >
-                                                            <option value="Very Serious" selected>Very Serious</option>
-                                                            <option value="Serious">Serious</option>
-                                                            <option value="Casual">Casual</option>
-                                                        </select>
+                                                        <g:form controller="dashboard" action="changeSerious" params="[tid: it.id,uid: usrId.id]">
+                                                            <g:select name="seriousness" from="${["VerySerious","Serious","Casual"]}" onchange="submit()" value="${sub?.seriousness}"/>
+                                                        </g:form>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="row">
@@ -257,11 +246,40 @@
                                                             <div class="col-md-3">
                                                                 <g:if test="${it.createdBy.id==usrId.id}">
                                                                     <a href="#" class="icon" data-toggle="modal" data-target="#exampleModalCenter4">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16" onclick="getElementById()">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16" onclick="getElementById('exampleModalCenter4')">
                                                                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                                                             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                                                         </svg>
                                                                     </a>
+                                                                    <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle4" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+
+                                                                                <div class="modal-header">
+                                                                                    <div class="col-md-12">
+                                                                                        <h5 class="modal-title" id="exampleModalLongTitle4">Share Link</h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-body">%{--${usr.email}--}%
+                                                                                    <g:form controller="dashboard" action="edit" name="editTopic" params="[id: usrId]">
+                                                                                        <div class="container" style="padding:10px">
+                                                                                            <div class="form-group">
+                                                                                                <label for="topicName">Topic Name :</label>
+                                                                                                <g:textField name="topicName" class="input" id="topicName"/>
+                                                                                            </div>
+                                                                                            <br>
+                                                                                            <div class="modal-footer">
+                                                                                                <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
+                                                                                                <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;">
+
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </g:form>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </g:if>
                                                             </div>
                                                             <div class="col-md-3">

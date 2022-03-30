@@ -278,8 +278,6 @@
                 <th>LastName</th>
                 <th>Action</th>
                 <th>Message</th>
-                %{--<th>Column 1</th>--}%
-                %{--<th>Column 2</th>--}%
             </tr>
             </thead>
             <tbody>

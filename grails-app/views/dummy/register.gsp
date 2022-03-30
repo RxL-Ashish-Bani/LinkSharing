@@ -45,7 +45,9 @@
                             <div class="card-body" id="n">
                                 <div class="media">
                                     <div class="row">
-                                        <g:each in="${company.Resources.list(max:5)}">
+                                        %{--lst >>>>> ${lst}--}%
+                                        %{--${company.Resources.list()}--}%
+                                        <g:each in="${company.Resources.list([max:5,sort:'dateCreated',order:'desc'])}">
                                             <div class="col-md-3">
                                                 <g:if test="${it.user.photo!=null}">
                                                     <asset:image src="/Photos/${it.user.userName}.png" class="media-object3"/>
@@ -111,7 +113,7 @@
                             <div class="card-body" id="n">
                                 <div class="media">
                                     <div class="row">
-                                        <g:each in="${company.Resources.list(max:5)}">
+                                        <g:each in="${company.Resources.list(max:5,)}">
                                             <div class="col-md-3">
                                                 <g:if test="${it.user.photo!=null}">
                                                     <asset:image src="/Photos/${it.user.userName}.png" class="media-object3"/>

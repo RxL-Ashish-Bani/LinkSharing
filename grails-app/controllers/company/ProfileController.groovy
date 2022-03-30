@@ -1,5 +1,6 @@
 package company
 
+import grails.converters.JSON
 import grails.rest.Link
 
 class ProfileController {
@@ -12,7 +13,8 @@ class ProfileController {
         Dummy f =session.getAttribute("users")
         println "HII"
         Topic topic=Topic.findByCreatedBy(f)
-        render view: "prof", model: [usrId: f, top: topic]
+        Subscription subscription=Subscription.findByTopic(topic)
+        render view: "prof", model: [usrId: f, top: topic, sub: subscription]
     }
 
     def users(){
@@ -25,11 +27,13 @@ class ProfileController {
     def posts(){
 
         Dummy f =session.getAttribute("users")
-        render view: "posts", model: [usrId: f]
+        Resources resources=Resources.findByUser(f)
+        render view: "posts", model: [usrId: f, res: resources]
     }
 
     def post(){
-        Dummy dummy=session.getAttribute("users")
+//        Dummy dummy=session.getAttribute("users")
+        Dummy dummy=Dummy.findById(params.uid)
         Resources resources=Resources.findById(params.rid)
         render view: "post", model: [usrId: dummy,res: resources]
     }
@@ -38,7 +42,7 @@ class ProfileController {
         println 'HII topic'
         println params
         Dummy f =session.getAttribute("users")
-        Topic topic=Topic.findByCreatedBy(f)
+        Topic topic=Topic.findById(params.tid)
         render view: "topics", model: [usrId: f, top:topic]
     }
 
@@ -76,7 +80,8 @@ class ProfileController {
 //        Dummy d = Dummy.findByEmail(params.email)
 //        println(d.properties)
         Topic topic=Topic.findByCreatedBy(f)
-        render view: "editProfile", model: [usrId: f, top: topic]
+        Subscription subscription=Subscription.findByTopic(topic)
+        render view: "editProfile", model: [usrId: f, top: topic, sub:subscription]
     }
 
 
@@ -140,4 +145,58 @@ class ProfileController {
         render view: "users", model: [usrId: dummy1 ]
     }
 
+    def editLink(){
+        Dummy dummy=session.getAttribute("users")
+        println(params)
+        Resources resources=Resources.findById(params.rid)
+        LinkResource linkResource=LinkResource.findByResources(resources)
+        linkResource.url=params
+        resources.description=params.description
+        linkResource.save(flush: true)
+//        Resources resources=Resources.findByTopic(params.rid.topic)
+        resources.save(flush: true)
+
+        render view: "post", model: [usrId: dummy,res:resources]
+    }
+
+    def editDoc(){
+        Dummy dummy=session.getAttribute("users")
+        println(params)
+        Resources resources=Resources.findById(params.rid)
+        DocumentResource documentResource=DocumentResource.findByResource(resources)
+//
+//        def file=request.getFile('photo')
+//        String docUploadPath="/home/ashishbani/Desktop/Dummy/grails-app/assets/images/Document/${dummy.userName+resources.id}.png"
+//        if(file && !file.empty){
+//            file.transferTo(new File("${docUploadPath}"))
+//            documentResource.filePath=docUploadPath
+//        }
+
+
+////        DocumentResource doc = new DocumentResource(filePath: docUploadPath, resource: r)
+//
+//        documentResource.filePath=
+        resources.description=params.description
+        documentResource.save(flush: true)
+////        Resources resources=Resources.findByTopic(params.rid.topic)
+        resources.save(flush: true)
+//
+        render view: "post", model: [usrId: dummy,res:resources]
+    }
+
+    def rating(){
+        println params
+        Dummy dummy=session.getAttribute("users")
+        Resources resources=Resources.findById(params.rid)
+        ResourceRating resourceRating=ResourceRating.findByResourceAndUser(resources,dummy)
+        if (resourceRating){
+            resourceRating.score=params.rating as Integer
+            resourceRating.save(flush:true)
+        }
+        else {
+            ResourceRating resourceRating1=new ResourceRating(user: dummy,score: params.rating as Integer, resource: params.rid)
+            resourceRating1.save(flush:true)
+        }
+        render(["name":"Ashish"] as JSON)
+    }
 }

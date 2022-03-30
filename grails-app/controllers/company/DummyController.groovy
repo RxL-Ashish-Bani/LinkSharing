@@ -48,7 +48,7 @@ class DummyController {
 
     def register(){
         def list=dummyService.topic()
-        println(list)
+        println "LIst >>> "+ list
         if(params.password!=params.confirmPassword){
             println "NOOOOOO"
             flash.message="Password didn't match"

@@ -5,13 +5,15 @@ class DashboardController {
 
 
     def dashboard() {
-        flash.message = "Welcome..!"
+//        flash.message = "Welcome..!"
         Dummy a = session.getAttribute("users")
 //        Dummy d = Dummy.findById(params.uid)
 
-        println a
+//        println a
         Topic topic= Topic.findByCreatedBy(a)
-        render(view: "dashboard", model: [usr: a,top: topic])
+        Subscription subscription=Subscription.findByTopic(topic)
+        Resources resources=Resources.findByUser(a)
+        render(view: "dashboard", model: [usr: a,top: topic, res:resources, sub: subscription])
 //        redirect action: "dashboard", model: [object: a]
 
 
@@ -50,13 +52,21 @@ class DashboardController {
 
     def invitation() {
         String email =params.receiver
-        String message = params.visibility
-
+//        String message = params.visibility
         mailService.sendMail {
-            to email
+            to "${email}"
             subject "Contact"
-            body message
+            body "You've been invited"
         }
+        flash.message = "Email sent"
+        redirect(action:'dashboard')
+    }
+
+    def edit(){
+        Dummy dummy=session.getAttribute("users")
+        Topic topic=Topic.findByCreatedBy(dummy)
+        topic.topicName=params.topicName
+        topic.save(flush:true)
     }
 
     def linkRes() {
@@ -117,6 +127,41 @@ class DashboardController {
         println "Hello"
 
         render view: "users1", model: [usrId: f]
+    }
+
+    def search(){
+        Dummy a = session.getAttribute("users")
+        println a
+        Topic topic= Topic.findByCreatedBy(a)
+        Subscription subscription=Subscription.findByTopic(topic)
+        println(params)
+        def results = Topic.findAllByTopicNameIlike("%${params.search}%")
+//        def resources=Resources.findAllByTopic(results)
+        println(results)
+
+//        [results:results]
+        render view: "search", model: [usr: a,top: topic, results:results, sub: subscription]
+    }
+
+    def changeVisible(){
+        println params
+        Dummy dummy=Dummy.findById(params.uid)
+        Topic topic=Topic.findById(params.tid)
+        topic.topicVisible=params.topicVisible
+        topic.save(flush:true)
+        render view: "dashboard", model: [usr: dummy, topic: topic]
+    }
+
+    def changeSerious(){
+        println params
+        Dummy dummy=Dummy.findById(params.uid)
+        println(dummy.properties)
+
+        Topic topic=Topic.findById(params.tid)
+        Subscription subscription=Subscription.findByTopic(topic)
+        subscription.seriousness=params.seriousness
+        subscription.save(flush:true)
+        render view: "dashboard", model: [usr:dummy , subs: subscription, topic: topic]
     }
 
 }

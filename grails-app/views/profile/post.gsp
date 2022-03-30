@@ -4,18 +4,32 @@
 <head>
     <title>Dashboard</title>
     <asset:stylesheet href="Style.css"/>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    %{--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>--}%
+    %{--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>--}%
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    %{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>--}%
     <style type="text/css">
     .roundside{
         border-radius: 25px;
     }
     </style>
+    <script>
+        $(document).ready(function() {
+            $("form#ratingForm").submit(function(e)
+            {
+                e.preventDefault(); // prevent the default click action from being performed
+                if ($("#ratingForm :radio:checked").length == 0) {
+                    $('#status').html("nothing checked");
+                    return false;
+                } else {
+                    $('#status').html( 'You picked ' + $('input:radio[name=rating]:checked').val() );
+                }
+            });
+        });
+    </script>
+
 </head>
 <body id="b">
 <div id="flash">
@@ -218,7 +232,30 @@
                                                             </h6>
                                                         </a>
                                                     </div>
-                                                    <h6>${"@"+it.topic.createdBy.userName}</h6>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <h6>${"@"+it.topic.createdBy.userName}</h6>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <form id="ratingForm">
+                                                            <fieldset class="rating">
+                                                                <input type="radio" id="star5" name="rating" value="5" onclick="calling(${it.id})"/>
+                                                                <label for="star5" title="5">5 stars</label>
+                                                                <input type="radio" id="star4" name="rating" value="4" onclick="calling(${it.id})"/>
+                                                                <label for="star4" title="4">4 stars</label>
+                                                                <input type="radio" id="star3" name="rating" value="3" onclick="calling(${it.id})"/>
+                                                                <label for="star3" title="3">3 stars</label>
+                                                                <input type="radio" id="star2" name="rating" value="2" onclick="calling(${it.id})"/>
+                                                                <label for="star2" title="2">2 stars</label>
+                                                                <input type="radio" id="star1" name="rating" value="1" onclick="calling(${it.id})"/>
+                                                                <label for="star1" title="1">1 star</label>
+                                                            </fieldset>
+                                                            %{--<div class="clearfix"></div>--}%
+                                                            %{--<button class="submit clearfix">Submit</button>--}%
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <hr style="height: 0px">
@@ -268,9 +305,87 @@
                                                                     Delete
                                                                 </g:link>
                                                             </g:else>
-                                                            <div href="#" class="col-md-3">
-                                                                Edit
-                                                            </div>
+                                                            <g:if test="${company.LinkResource.findByResources(it)}">
+                                                                <a href="#" class="col-md-3" data-toggle="modal" data-target="#exampleModalCenter4" id="editBtn">
+                                                                    Edit
+                                                                </a>
+                                                                <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle4" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+
+                                                                            <div class="modal-header">
+                                                                                <div class="col-md-12">
+                                                                                    <h5 class="modal-title" id="exampleModalLongTitle4">Edit Link</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-body">%{--${usr.email}--}%
+                                                                                <g:form controller="profile" action="editLink" name="editTopic" params="[rid: it.id]">
+                                                                                    <div class="container" style="padding:10px">
+                                                                                        <div class="form-group">
+                                                                                            <label for="url">Link :</label>
+                                                                                            <g:textField name="url" class="input" id="url"/>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="form-group">
+                                                                                            <label for="description">Description :</label>
+                                                                                            <g:textArea name="description" class="input" id="description"/>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="modal-footer">
+                                                                                            <g:submitButton name="create-topic" value="Edit"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
+                                                                                            <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </g:form>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </g:if>
+                                                            <g:else>
+                                                                <a href="#" class="col-md-3" data-toggle="modal" data-target="#exampleModalCenter4" id="editBtn">
+                                                                    Edit
+                                                                </a>
+                                                                <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle4" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+
+                                                                            <div class="modal-header">
+                                                                                <div class="col-md-12">
+                                                                                    <h5 class="modal-title" id="exampleModalLongTitle4">Edit Document</h5>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-body">%{--${usr.email}--}%
+                                                                                <g:uploadForm controller="profile" action="editDoc" name="documentResource" params="[rid: it.id]">
+                                                                                    <div class="container" style="padding:10px">
+                                                                                        %{--<div class="form-group">--}%
+                                                                                            %{--<div class="col-md-4">--}%
+                                                                                                %{--<label>Document :</label>--}%%{--<label>Document :</label> label for="document"--}%
+                                                                                            %{--</div>--}%%{--<g:textField name="document" class="input" id="document"/>--}%
+                                                                                            %{--<div class="col-md-8">--}%
+                                                                                                %{--<input type="file" name="photo" id="photo">--}%
+                                                                                            %{--</div>--}%
+                                                                                        %{--</div>--}%
+                                                                                        %{--<br>--}%
+                                                                                        <div class="form-group">
+                                                                                            <label for="description">Description :</label>
+                                                                                            <g:textArea name="description" class="input" id="description"/>
+                                                                                        </div>
+                                                                                        <br>
+                                                                                        <div class="modal-footer">
+                                                                                            <g:submitButton name="create-topic" value="Save"  class="submit btn btn-primary" style="float: right; margin-right: 4px;" onclick="document.getElementById('Modal-topic').style.display='none'"/>
+                                                                                            <input type="button" value="Cancel" class="submit btn btn-primary" data-dismiss="modal" style="float:right; margin-right:4px;" >
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </g:uploadForm>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </g:else>
                                                             <g:if test="${company.LinkResource.findByResources(it)}">
                                                                 <a class="col-md-3" href="${company.LinkResource.findByResources(it).url}" target="_blank">
                                                                     View full site
@@ -456,11 +571,27 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function calling(id) {
+        $(document).ready(function () {
+            var URL="${createLink(controller: 'profile',action: 'rating')}";
+            var rate=$("input[name='rating']:checked").val();
+            var rid=id;
+            $.ajax({
+                type: "GET",
+                url:URL,
+                data:{"rating":rate,"rid":rid},
+                success:function (response) {
+                    console.log(response.name)
+                }
+            });
+        });
+    }
+</script>
 <script>
     setTimeout(function(){
         $("#flash").css("display",'none');
     }, 1500 ); // 1.5 sec
-
 </script>
 </body>
 </html>

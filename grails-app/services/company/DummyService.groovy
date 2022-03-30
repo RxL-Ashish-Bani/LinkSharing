@@ -9,11 +9,11 @@ class DummyService {
     def topic(){
 //        Topic topic=Topic.findById(topicId)
 //        Resources resources=Resources.findByTopic(topic)
+//        def list=Resources.getResourceRelatedTopic()
+//        return list
         def list=Resources.createCriteria().list {
-//            eq("topicVisible","Public")
-            order("dateCreated","desc")
+
         }
-        return list
     }
 
     def get(id){
